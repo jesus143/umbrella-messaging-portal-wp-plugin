@@ -1,5 +1,5 @@
-   <nav aria-label="Page navigation">
-            <ul class="pagination">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
             <li>
                 <a href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
@@ -9,7 +9,9 @@
                     $isActive = '';
                     if(ump_get_current_page() == $i) { 
                         $isActive = 'active';
-                    } 
+                    } else if(ump_get_current_page() < 1 and $i ==1) {
+                        $isActive = 'active';
+                    }
                 ?>  
                     <li class="<?php print $isActive; ?>"><a href="?section=message-notification&tab=umbrella-partners&page=<?php print $i; ?>"><?php print $i; ?></a></li> 
                 <?php endfor; ?>
@@ -18,5 +20,5 @@
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
-          </ul>
-        </nav>
+        </ul>
+    </nav>
