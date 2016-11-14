@@ -1,8 +1,7 @@
 <?php
-//if(ump_is_read($latestReply, get_current_user_id(), $ticketId, ump_get_reply_id($latestReply)) == true) {
+$_SESSION['ticketsContent'] = $_SESSION['tickets']['umbrella_growth_executive']; 
 ump_process_update_status_to_read(get_current_user_id(), $_GET['ticketId'], $_GET['replyId']);
 
-// error_reporting(1);
 $ticketReplies      =  Ump\UmpFd::getUserTicketReplies( $_GET['ticketId'] );
 $ticket             =  Ump\UmpFd::getSpecificTicket(  $_GET['ticketId'] );
 $currentUserEmail   =  $_SESSION['ump_current_user_email'];
@@ -14,14 +13,6 @@ $ticketPriority     =  $ticket['priority'];
 $ticketSource       =  $ticket['source'];
 $ticketId           =  $_GET['ticketId'];
 
-// print "<pre>";
-//    print "<br> current login email " . $_SESSION['ump_current_user_email'] . '<br><br>';
-//     print "below is the ticket detail for " . $_GET['ticketId'];
-//     print_r($ticket);
-//     print "below are the reply<br><br><hr>";
-//     print_r($ticketReplies);
-// print "</pre>";
-// exit;
 if(!empty($_POST['umpReplyMessage'])) {
     print "<div class='alert alert-success'> successfully posted response! </div>";
 }
@@ -46,31 +37,18 @@ if(!empty($_POST['umpReplyMessage'])) {
         <div class="col-md-12">
             <h2 class="page-header">Comments</h2>
             <section class="comment-list">
-                <?php  for ($i=0; $i < count($ticketReplies) ; $i++):?>
-                    <?php
+                <?php  for ($i=0; $i < count($ticketReplies) ; $i++):
 
                         $support_email = $ticketReplies[$i]['support_email'];
                         $from_email    = $ticketReplies[$i]['from_email'];
                         $body          = $ticketReplies[$i]['body'];
                         $to_emails     = $ticketReplies[$i]['to_emails'];
                         $created_at    = $ticketReplies[$i]['created_at'];
-                        // print "$from_email  == $currentUserEmail<br>";
 
                         // used default to send reply
                         if(!empty($support_email)) {
                             $umpTo = $support_email;
                         }
-
-
-                        //                        print "<pre>";
-                        //
-                        //                            print_r($ticketReplies);
-                        //
-                        //                        print "</pre>";
-                        //
-                        //
-                        //                        print " if ( " . $_SESSION['ump_current_user_email'] . " === " .   ump_get_email_message_receiver()  . ')';
-
                     ?>
 
                     <?php  if(in_array($_SESSION['ump_current_user_email'],  $to_emails) == true) {   ?>
@@ -94,7 +72,6 @@ if(!empty($_POST['umpReplyMessage'])) {
                                             <?php  print $body; ?>
                                         </p>
                                     </div>
-<!--                                    <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>-->
                                 </div>
                             </div>
                         </div>
@@ -138,9 +115,6 @@ if(!empty($_POST['umpReplyMessage'])) {
         </div>
     </div>
 </div>
-
-
- x
 <style>
     /*font Awesome http://fontawesome.io*/
     @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);

@@ -37,8 +37,6 @@ Author URI: http://webuildyoursite.servebeer.com/
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-$_SESSION['ump_current_user_email'] = wp_get_current_user()->user_email;
-$_SESSION['ump_support_user_email'] = 'enquiries@umbrellasupport.co.uk';
 
 //$_SESSION['ump_current_user_email'] = 'enquiries@umbrellasupport.co.uk';
 
@@ -55,6 +53,14 @@ require_once( 'Model/Ump_User_Fd.php');
 require_once( 'Controller/Ump_Ticket_Controller.php');
 
 
+
+
+$_SESSION['ump_current_user_name']  = wp_get_current_user()->display_name;
+$_SESSION['ump_current_user_email'] = wp_get_current_user()->user_email;
+$_SESSION['ump_support_user_email'] = 'enquiries@umbrellasupport.co.uk';
+$_SESSION['ump_total_ticket_per_page'] = 5;
+// $_SESSION['ump_tickets_with_latest_reply'] = array(); 
+ 
 // Load plugin libraries
  
 

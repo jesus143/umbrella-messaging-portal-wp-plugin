@@ -22,7 +22,7 @@ class UmpFd
 	 * sample queries:
 	 * 1. https://umbrellasupport.freshdesk.com/api/v2/tickets?email=mrjesuserwinsuarez@gmail.com&order_by=created_at&order_type=asc&per_page=1&page=1
 	 */
-	public static function fetchTickets($filterName, $filterVal,$per_page=5, $page=1)
+	public static function fetchTickets($filterName, $filterVal,$per_page=20, $page=1)
 	{
 		// custom_fields.catergory
 		// print "username " . self::$username;
@@ -43,25 +43,18 @@ class UmpFd
 		$response = substr($server_output, $header_size);
 
 		if($info['http_code'] == 200) {
-		  // echo "Tickets fetched successfully, the response is given below \n";
-		  // echo "Response Headers are \n";
-		  // echo $headers."\n";
-		  // echo "Response Body \n";
-		  // echo "$response \n";
 		  return json_decode($response, true);
 		} else {
 		  if($info['http_code'] == 404) {
-		    // echo "Error, Please check the end point \n";
 		    return;
 		  } else {
-		    // echo "Error, HTTP Status Code : " . $info['http_code'] . "\n";
-		    // echo "Headers are ".$headers;
-		    // echo "Response are ".$response;
 		    return $response;
 		  }
 		} 
 		curl_close($ch); 
 	}
+
+
 
 
 	public static function fetchTicketsWithConversation(){
@@ -149,17 +142,7 @@ class UmpFd
 		// $ticket_id = 7;
 		$usr = self::getUsername();
 		$pwd = self::getPassword();
-		$domain = self::getDomain(); 
-
-		//		print "<pre>";
-		//		print " user: $usr  pass: $pwd domain: $domain  ticket id :$ticketId <br>";
-
-		//		print_r($replyPayload);
-
-		//		print "</pre>";
-		// $replyPayload = array(
-		//   'body' => 'This is a sample reply' 
-		// ); 
+		$domain = self::getDomain();
 		 
 		$url = "https://" .self::getDomain(). ".freshdesk.com/api/v2/tickets/$ticketId/reply";
 
@@ -178,22 +161,13 @@ class UmpFd
 		$response = substr($server_output, $header_size);
 
 		if($info['http_code'] == 201) {
-			//		  echo "Note added to the ticket, the response is given below \n";
-			//		  echo "Response Headers are \n";
-			//		  echo $headers."\n";
-			//		  echo "Response Body \n";
-			//		  echo "$response \n";
 
 			return false;
 		} else {
 		    if($info['http_code'] == 404) {
 				return false;
-			//	echo "Error, Please check the end point \n";
 		    } else {
 				return true;
-			//		    echo "Error, HTTP Status Code : " . $info['http_code'] . "\n";
-			//		    echo "Headers are ".$headers."\n";
-			//		    echo "Response is ".$response;
 		  }
 		}
 
