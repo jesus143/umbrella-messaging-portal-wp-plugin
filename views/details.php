@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $_SESSION['ticketsContent'] = $_SESSION['tickets']['umbrella_growth_executive']; 
 ump_process_update_status_to_read(get_current_user_id(), $_GET['ticketId'], $_GET['replyId']);
 
@@ -16,6 +18,9 @@ $ticketId           =  $_GET['ticketId'];
 if(!empty($_POST['umpReplyMessage'])) {
     print "<div class='alert alert-success'> successfully posted response! </div>";
 }
+ 
+ump_ticket_notification_visited($ticketId, $_GET['tab']);
+
 
 ?>
 <div class="container">

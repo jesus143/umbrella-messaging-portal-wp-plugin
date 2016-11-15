@@ -18,8 +18,8 @@
   to be customized because we need the feature like FD<BR><br><BR><BR><BR>
   </textarea>
   <br> 
-  <div class="pull-left" ><input type="file" name="ump_repy_attachment" /> </div>
-  <div class="pull-right"><button class="btn btn-warning btn-sm" id="btn-chat">Send</button> 
+  <!-- <div class="pull-left" ><input type="file" name="ump_repy_attachment" /> </div> -->
+  <div class="pull-left"><button class="btn btn-warning btn-sm" id="btn-chat">Send</button> 
 <!--    <select style="padding: 6px;border-radius: 5px;" name="ump_send_and_set_as">-->
 <!--      <option>Send and set as pending</option>-->
 <!--      <option>Send and set as resolved</option>-->

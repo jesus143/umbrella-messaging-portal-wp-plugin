@@ -28,24 +28,30 @@ function ump_separate_to_tabs($tickes) {
 	return $results;
 }
 function ump_post_reply() {
-	if(ump_is_agent()) {
-		if (isset($_POST['body']) and isset($_POST['ticketId'])) {
-			$body = $_POST['body'];
-			$ticketId = $_POST['ticketId'];
-			return Ump\UmpFd::replyTicket($ticketId, array('body' => $body));
-		}
+	// if(ump_is_agent()) {
+	// 	if (isset($_POST['body']) and isset($_POST['ticketId'])) {
+	// 		$body = $_POST['body'];
+	// 		$ticketId = $_POST['ticketId'];
+	// 		return Ump\UmpFd::replyTicket($ticketId, array('body' => $body));
+	// 	}
+	// } else {
+	$to = $_POST['umpTo'];
+	$subject = $_POST['subject'];
+	$body = $_POST['body'];
+	$headers = array('Content-Type: text/html; charset=UTF-8');
+	$headers = 'From: Jesus Erwin Suarez <' . $_SESSION['ump_current_user_email'] . '>' . "\r\n";
+
+	print "<br> message email ---> to: $to <Br> subject: $subject <Br>body: $body <Br>header: $headers <Br> current loggedin email: " . $_SESSION['ump_current_user_email'];
+
+  
+
+	if(wp_mail( $to, $subject, $body, $headers )){
+
+		return true;
 	} else {
-		$to = $_POST['umpTo'];
-		$subject = $_POST['subject'];
-		$body = $_POST['body'];
-		$headers = array('Content-Type: text/html; charset=UTF-8');
-		$headers = 'From: Test <' . $_SESSION['ump_current_user_email'] . '>' . "\r\n";
-		if(wp_mail( $to, $subject, $body, $headers )){
-			return true;
-		} else {
-			return false;
-		}
+		return false;
 	}
+	// }
 }
 function ump_is_agent() {
 	return Ump\UmpFd::getAgentInfoByEmail($_SESSION['ump_current_user_email']);
@@ -159,6 +165,22 @@ function ump_get_email_message_receiver() {
     }
 } 
 
+function ump_get_total_notification_unread($tickets) { 
+	$total_unread = 0; 
+	// start the filter and sort
+	for ($i=0; $i <count($tickets) ; $i++) :    
+	    $ticketId            		= $tickets[$i]['id']; 
+	    $latestReply         		= $tickets[$i]['latestReply'];   
+	    $is_read 				    = $tickets[$i]['is_read'];  
+	    print "<br> is read " . $is_read; 
+	    if($is_read == 'no') {
+	    	$total_unread++;
+	    }   
+	endfor;     
+    return  $total_unread;
+}
+
+
 function ump_get_ticket_total_by_unread($tickets) {  
 
 	$total_unread = 0;
@@ -177,11 +199,9 @@ function ump_get_ticket_total_by_unread($tickets) {
 	endfor;     
     return  $total_unread;
 }
-
-
-
-
-
+function ump_get_ticket_replies($ticketId) { 
+	return Ump\UmpFd::getUserTicketReplies($ticketId);
+}
 function ump_sort_ticket_by_unread_notification($tickets) {  
 
 	$notifications = []; 
@@ -193,7 +213,7 @@ function ump_sort_ticket_by_unread_notification($tickets) {
 	    $ticketId            		= $tickets[$i]['id'];
 	    $description         		= $tickets[$i]['description'];
 	    $subject             		= $tickets[$i]['subject'];
-	    $latestReply         		= Ump\UmpFd::getLatestReply(Ump\UmpFd::getUserTicketReplies($ticketId));
+	    $latestReply         		= Ump\UmpFd::getLatestReply(ump_get_ticket_replies($ticketId));
 	    $lastPersonCommented 	    = $_SESSION['ump_current_user_name'];  
 	    $tickets[$i]['latestReply'] =  $latestReply;  
 
@@ -260,8 +280,60 @@ function ump_get_total_unread_notification_tickets($tickets) {
 }
  
 
-function ump_generate_freshdesk_data($limit=10) { 
-	$freshdeskData = Ump\UmpFd::fetchTickets('email', $_SESSION['ump_current_user_email'], $limit); 
- 	$ticketsWithLatestComments = ump_sort_ticket_by_unread_notification($freshdeskData);  
+function ump_retrieve_freshdesk_data($limit=10) {
+	return Ump\UmpFd::fetchTickets('email', $_SESSION['ump_current_user_email'], $limit); 
+}
+
+function ump_generate_freshdesk_data($tickets) {  
+ 	$ticketsWithLatestComments = ump_sort_ticket_by_unread_notification($tickets);  
  	return $ticketsWithLatestComments;
 }
+
+function ump_pre_print_r($data) {
+	print "<pre>"; 
+	print_r($data);
+	print "</pre>";  
+	exit;  
+}
+
+/**
+ * Set upen ticket
+ * @param  [type] $ticketId [description]
+ * @return [type]           [description]
+ */
+function ump_ticket_notification_visited($ticketId, $tab) {  
+ 
+	
+
+	 
+
+	$tickets = $_SESSION['ump_tickets_with_latest_reply']; 
+	$counter=0;
+	foreach ($tickets as $ticket) {
+		if($ticket['id'] == $ticketId){
+			
+	 		if($_SESSION['ump_tickets_with_latest_reply'][$counter]['is_read'] == 'no') { 
+				// decrement notification 
+				if($tab == 'bge') {
+					$_SESSION['ump_tickets_with_latest_reply']['total_notification']['bge']--;
+				} else if ($tab == 'um') {
+					$_SESSION['ump_tickets_with_latest_reply']['total_notification']['um']--;
+				} else if ($tab == 'up') {
+					$_SESSION['ump_tickets_with_latest_reply']['total_notification']['up']--;
+				}	
+				$_SESSION['ump_tickets_with_latest_reply'][$counter]['is_read'] = 'yes'; 
+			} 
+		}
+		$counter++;
+	}  
+}
+function ump_get_site_full_url() {
+	$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	return $actual_link;
+} 
+// function ump_is_localhost() {  
+//     $whitelist = array( '127.0.0.1', '::1' );
+//     if( in_array( $_SERVER['REMOTE_ADDR'], $whitelist) ) { 
+//         return true;
+//     } 
+// }

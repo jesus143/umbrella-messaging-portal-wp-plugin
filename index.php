@@ -7,9 +7,8 @@ Description:  This plugin integrate with Freshdesck and OP
 Author: Jesus Erwin Suarez
 Version: 1
 Author URI: http://webuildyoursite.servebeer.com/
-*/
-
-
+*/ 
+ // unset($_SESSION);
 /**
  * generate barcode
  */  
@@ -41,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 //$_SESSION['ump_current_user_email'] = 'enquiries@umbrellasupport.co.uk';
 
 // Load plugin class files
-
+ 
 require_once( ABSPATH . 'wp-includes/user.php' );
 require_once( ABSPATH . 'wp-includes/pluggable.php' ); 
 require_once( 'includes/wpdb_queries.class.php');
@@ -51,19 +50,14 @@ require_once( 'Model/UmpNotificationReading.php');
 require_once( 'includes/helper.php' );
 require_once( 'Model/Ump_User_Fd.php');
 require_once( 'Controller/Ump_Ticket_Controller.php');
-
-
-
-
+ 
 $_SESSION['ump_current_user_name']  = wp_get_current_user()->display_name;
 $_SESSION['ump_current_user_email'] = wp_get_current_user()->user_email;
-$_SESSION['ump_support_user_email'] = 'enquiries@umbrellasupport.co.uk';
+$_SESSION['ump_support_user_email'] = 'support@umbrellasupport.freshdesk.com';
 $_SESSION['ump_total_ticket_per_page'] = 5;
-// $_SESSION['ump_tickets_with_latest_reply'] = array(); 
- 
+// $_SESSION['ump_tickets_with_latest_reply'] = array();  
 // Load plugin libraries
- 
-
+  
 /**
  * Returns the main instance of WordPress_Plugin_Template to prevent the need to use globals.
  *

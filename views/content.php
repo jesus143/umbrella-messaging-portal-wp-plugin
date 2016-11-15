@@ -1,23 +1,28 @@
 <?php    
-    require ('config.php'); 
+    require ('config.php');  
+
+    // print "this is the total session counter " . $_SESSION['counter_test'];
     // print "<pre>"; 
     // print "session play here..";
     // print_r($_SESSION['ump_tickets_with_latest_reply']); 
     // print "</pre>"; 
     // exit; 
-    $_SESSION['tickets'] = ump_separate_to_tabs(Ump\UmpFd::fetchTickets('email', $_SESSION['ump_current_user_email'] ));  
+    $_SESSION['tickets'] = ump_separate_to_tabs($_SESSION['ump_tickets_with_latest_reply']);  
     $tab = $_GET['tab'];  
     $page = $_GET['page']; 
     // print "<br>tab $tab page $page urrent user mail "  .$_SESSION['ump_current_user_email'] ;
     // print "tab " .    $tab ; 
     if($tab == 'Business Growth Executed') {  
+        $tabAbbr='bge';
         $tickets = $_SESSION['tickets']['umbrella_growth_executive'];      
-        $tickets = ump_sort_ticket_by_unread_notification($tickets);  
+        // $tickets = ump_sort_ticket_by_unread_notification($tickets);  
     } else if ($tab == 'Umbrella Messages') {
+        $tabAbbr='um';
         $tickets = $_SESSION['tickets']['umbrella_messages'];
-        $tickets = ump_sort_ticket_by_unread_notification($tickets);  
+        // $tickets = ump_sort_ticket_by_unread_notification($tickets);  
     }else if($tab == 'Umbrella Portners') {   
         // $tickets = '';
+        $tabAbbr='up';
         print "<h1>Comming soon..</h1>";
         exit;
     }
@@ -33,7 +38,9 @@
 ?>
 <div class="bs-example" data-example-id="list-group-custom-content">
     <div class="list-group"> 
-        <?php 
+        <?php  
+        print "<div style='display:none'><loaded>" . $_SESSION['ump_total_ticket_per_page']['loaded'] . "<loaded></div>";
+          print "<div style='display:none'><totalTickets>" . count($tickets) . "<totalTickets></div>"; 
         for ($i=0; $i <count($tickets) ; $i++) :
 
                 $notificationStatus  = 'unread';
@@ -48,22 +55,24 @@
                 // if(ump_is_read($latestReply, get_current_user_id(), $ticketId, ump_get_reply_id($latestReply)) == true) { $notificationStatus = 'read'; } 
             ?>
             <div>
-                <a href="?section=message-details&ticketId=<?php print $tickets[$i]['id']; ?>&replyId=<?php print ump_get_reply_id($latestReply); ?>" class="list-group-item <?php print $notificationStatus; ?> ">
+                <notification>
+                    <a href="?section=message-details&ticketId=<?php print $tickets[$i]['id']; ?>&replyId=<?php print ump_get_reply_id($latestReply); ?>&tab=<?php print $tabAbbr; ?>" class="list-group-item <?php print $notificationStatus; ?> ">
 
-                    <span style='color:blue'> <?php print $lastPersonCommented; ?> </span> <br><br>
+                        <span style='color:blue'> <?php print $lastPersonCommented; ?> </span> <br><br>
 
-                    <h4 style="padding:0px;margin:0px;padding-bottom: 5px; " class="list-group-item-heading">
-                        <?php  print $subject; ?>
-                    </h4>
+                        <h4 style="padding:0px;margin:0px;padding-bottom: 5px; " class="list-group-item-heading">
+                            <?php  print $subject; ?>
+                        </h4>
 
-                    <p class="list-group-item-text">
-                        <?php print $description; ?>
-                    </p>
+                        <p class="list-group-item-text">
+                            <?php print $description; ?>
+                        </p>
 
-                    <hr>
-                    <b><em> <?php print (ump_get_reply_user_name($latestReply))? "From: " . ump_get_reply_user_name($latestReply) : "No reply recieved yet"; ?></em></b>
-                    <p><em> <?php print (ump_get_reply_user_name($latestReply))?  ump_get_reply_body($latestReply) : null; ?></em></p>
-                </a>
+                        <hr>
+                        <b><em> <?php print (ump_get_reply_user_name($latestReply))? "From: " . ump_get_reply_user_name($latestReply) : "No reply recieved yet"; ?></em></b>
+                        <p><em> <?php print (ump_get_reply_user_name($latestReply))?  ump_get_reply_body($latestReply) : null; ?></em></p>
+                    </a>
+                </notification>
             </div>
         <?php endfor; ?>
 

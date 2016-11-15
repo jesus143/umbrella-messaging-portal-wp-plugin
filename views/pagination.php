@@ -2,27 +2,30 @@
     require ('config.php');  
     // print "pagination temporary disabled";
     // exit;
-    $_SESSION['tickets'] = ump_separate_to_tabs(Ump\UmpFd::fetchTickets('email', $_SESSION['ump_current_user_email'] )); 
+    // $_SESSION['tickets'] = ump_separate_to_tabs(Ump\UmpFd::fetchTickets('email', $_SESSION['ump_current_user_email'])); 
     $tab = $_GET['tab'];  
     // print "tab " .    $tab ; 
     if($tab == 'Business Growth Executed') {  
-        $tickets = $_SESSION['tickets']['umbrella_growth_executive'];      
+        // $tickets = $_SESSION['tickets']['umbrella_growth_executive'];      
+        $totalPagination = $_SESSION['ump_tickets_with_latest_reply']['total_pagination']['bge'];
         $content_id = '#ump-content-bge';
         // $tickets = ump_sort_ticket_by_unread_notification($tickets);  
     } else if ($tab == 'Umbrella Messages') {
-        $tickets = $_SESSION['tickets']['umbrella_messages'];
+        // $tickets = $_SESSION['tickets']['umbrella_messages'];
+        $totalPagination = $_SESSION['ump_tickets_with_latest_reply']['total_pagination']['um'];
         $content_id = '#ump-content-um';
         // $tickets = ump_sort_ticket_by_unread_notification($tickets);  
-    }else if($tab == 'Umbrella Portners') {   
+    } else if ($tab == 'Umbrella Portners') {   
         // $tickets = '';
         print "<h1>Pagination Comming soon..</h1>";
-         $tickets = $_SESSION['tickets']['umbrella_partners'];
+        // $tickets = $_SESSION['tickets']['umbrella_partners'];
+        $totalPagination = $_SESSION['ump_tickets_with_latest_reply']['total_pagination']['up'];
         $content_id = '#ump-footer-um';
         exit;
     } 
 
-    $totalPagination = ump_count_total_tickets_for_pagination($tickets, $_SESSION['ump_total_ticket_per_page']); 
-    // print "total pagination now after loading " .     $totalPagination ;
+    // $totalPagination = ump_count_total_tickets_for_pagination($tickets, $_SESSION['ump_total_ticket_per_page']); 
+    print "total pagination now after loading " .     $totalPagination ;
 ?> 
     <nav aria-label="Page navigation">
         <ul class="pagination">
