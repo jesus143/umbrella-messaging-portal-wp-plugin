@@ -25,7 +25,7 @@
     } 
 
     // $totalPagination = ump_count_total_tickets_for_pagination($tickets, $_SESSION['ump_total_ticket_per_page']); 
-    print "total pagination now after loading " .     $totalPagination ;
+    // print "total pagination now after loading " .     $totalPagination ;
 ?> 
     <nav aria-label="Page navigation">
         <ul class="pagination">

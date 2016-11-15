@@ -32,14 +32,9 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 	  	$.fn.loadNotificationPagination('#ump-footer-up', 'Umbrella Portners'); 
 	}, 2000);  
 
-}( jQuery ));
-/**
- * Get content of each tab
- * @param  {[type]} ){ console.log("contact jquery loaded!..."); $.fn.functionName [description]
- * @return {[type]}     [description]
- */
-(function ( $ ) { 
+ 
 
+ 
 	// console.log("contact jquery loaded!...");      
 
 	$.fn.loadContent = function(content, tab, page){
@@ -59,8 +54,40 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 			 }  else if (totalNoti < 1 && isLoaded == '') {
 			 	// reload again if the session is failed to load
 			 	console.log(" session data is not loaded, then load again"); 
-			 	$.fn.startCheckTotalNotifications();
-			  	$.fn.loadContent(); 
+			  	
+			  	// load pagination 
+			  	 	setTimeout(function(){  
+				 		$.fn.loadNotificationPagination('#ump-footer-bge', 'Business Growth Executed');
+					  	$.fn.loadNotificationPagination('#ump-footer-um', 'Umbrella Messages');
+					  	$.fn.loadNotificationPagination('#ump-footer-up', 'Umbrella Portners'); 
+					}, 2000);  
+			  	
+		 		// load notification in bge
+					setTimeout(function(){  
+						$.fn.loadTotalUnreadNotifications('#ump-menu-badge-bge', '#ump-menu-loader-bge', 'Business Growth Executed');
+					}, 2000);
+
+					// load notification in um
+					setTimeout(function(){  
+						$.fn.loadTotalUnreadNotifications('#ump-menu-badge-um', '#ump-menu-loader-um', 'Umbrella Messages');
+					}, 2000);
+
+					// load notification in up
+					setTimeout(function(){  
+						$.fn.loadTotalUnreadNotifications('#ump-menu-badge-up', '#ump-menu-loader-up', 'Umbrella Portners'); 
+					}, 2000);	
+
+			 	// load content  
+					 setTimeout(function(){  
+				 		$.fn.loadContent( '#ump-content-bge', 'Business Growth Executed', 1);   
+					}, 2000);
+					 setTimeout(function(){   
+				 		$.fn.loadContent( '#ump-content-um', 'Umbrella Messages', 1); 
+					}, 4000);
+
+					setTimeout(function(){   
+				 		$.fn.loadContent( '#ump-content-up', 'Umbrella Portners', 1); 
+					}, 8000); 
 			 } else {
 			 	console.log(" ticket are successfully loaded");
 			 }
@@ -75,10 +102,20 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 		});    
   	}  
 
-  	// load tab
-	 setTimeout(function(){  
- 		$.fn.loadContent( '#ump-content-bge', 'Business Growth Executed', 1);  
-	}, 2000);
+   
+	  	// auto load tab
+		 setTimeout(function(){  
+	 		$.fn.loadContent( '#ump-content-bge', 'Business Growth Executed', 1);   
+		}, 2000);
+		 setTimeout(function(){   
+	 		$.fn.loadContent( '#ump-content-um', 'Umbrella Messages', 1); 
+		}, 4000);
+
+		setTimeout(function(){   
+	 		$.fn.loadContent( '#ump-content-up', 'Umbrella Portners', 1); 
+		}, 8000);
+ 
+
   	 
 	// menu click in bussiness growth executive
 	$('#ump-menu-bge').on('click', function(){
@@ -104,6 +141,7 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 		.done(function( data ) {
 			console.log("loadTotalUnreadNotifications() loaded");
 		    // console.log( "Data Loaded: " + data ); 
+		   
 		    $( content ).html(data);
 		    // $( loader ).html('');
 		});    
@@ -146,8 +184,45 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 	$.fn.loadFreshdeskData = function(){  
 		$.get( obj.site_plugin_url + "/views/generate-freshdesk-local.php" ) 
 		.done(function( data ) {  
-			console.log("finish generating freshdesk data"); 
-			console.log( data );
+
+			// load pagination 
+	  	 	setTimeout(function(){  
+		 		$.fn.loadNotificationPagination('#ump-footer-bge', 'Business Growth Executed');
+			  	$.fn.loadNotificationPagination('#ump-footer-um', 'Umbrella Messages');
+			  	$.fn.loadNotificationPagination('#ump-footer-up', 'Umbrella Portners'); 
+			}, 2000);  
+	  	
+ 		// load notification in bge
+			setTimeout(function(){  
+				$.fn.loadTotalUnreadNotifications('#ump-menu-badge-bge', '#ump-menu-loader-bge', 'Business Growth Executed');
+			}, 2000);
+
+			// load notification in um
+			setTimeout(function(){  
+				$.fn.loadTotalUnreadNotifications('#ump-menu-badge-um', '#ump-menu-loader-um', 'Umbrella Messages');
+			}, 2000);
+
+			// load notification in up
+			setTimeout(function(){  
+				$.fn.loadTotalUnreadNotifications('#ump-menu-badge-up', '#ump-menu-loader-up', 'Umbrella Portners'); 
+			}, 2000);	
+
+	 	// load content  
+			 setTimeout(function(){  
+		 		$.fn.loadContent( '#ump-content-bge', 'Business Growth Executed', 1);   
+			}, 2000);
+			 setTimeout(function(){   
+		 		$.fn.loadContent( '#ump-content-um', 'Umbrella Messages', 1); 
+			}, 4000);
+
+			setTimeout(function(){   
+		 		$.fn.loadContent( '#ump-content-up', 'Umbrella Portners', 1); 
+			}, 8000); 
+
+
+
+			// console.log("finish generating freshdesk data"); 
+			// console.log( data );
 		});     
 		// console.log("finish generating freshdesk data"); 
   	}     
