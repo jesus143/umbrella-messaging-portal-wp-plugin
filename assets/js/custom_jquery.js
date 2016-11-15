@@ -35,8 +35,7 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
  
 
  
-	// console.log("contact jquery loaded!...");      
-
+	// console.log("contact jquery loaded!...");       
 	$.fn.loadContent = function(content, tab, page){
   		var loadUrl = obj.site_plugin_url + '/assets/img/icon/box.gif'; 
 	 	$( content ).html("<img src='"  + loadUrl +"' />");
@@ -101,36 +100,32 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 		    $( content ).html(data);
 		});    
   	}  
-
-   
-	  	// auto load tab
-		 setTimeout(function(){  
+ 
+  	// auto load tab
+		setTimeout(function(){  
 	 		$.fn.loadContent( '#ump-content-bge', 'Business Growth Executed', 1);   
 		}, 2000);
-		 setTimeout(function(){   
-	 		$.fn.loadContent( '#ump-content-um', 'Umbrella Messages', 1); 
-		}, 4000);
-
 		setTimeout(function(){   
+	 		$.fn.loadContent( '#ump-content-um', 'Umbrella Messages', 1); 
+		}, 4000); 
+		setTimeout(function(){    
 	 		$.fn.loadContent( '#ump-content-up', 'Umbrella Portners', 1); 
 		}, 8000);
  
-
-  	 
 	// menu click in bussiness growth executive
-	$('#ump-menu-bge').on('click', function(){
-		$.fn.loadContent( '#ump-content-bge', 'Business Growth Executed', 1); 
-	});
+		$('#ump-menu-bge').on('click', function(){
+			$.fn.loadContent( '#ump-content-bge', 'Business Growth Executed', 1); 
+		});
 
-	//menu click in bussiness growth executive
-	$('#ump-menu-um').on('click', function(){
-		$.fn.loadContent( '#ump-content-um', 'Umbrella Messages', 1); 
-	}); 
+		//menu click in bussiness growth executive
+		$('#ump-menu-um').on('click', function(){
+			$.fn.loadContent( '#ump-content-um', 'Umbrella Messages', 1); 
+		}); 
 
-	// menu click in bussiness growth executive
-	$('#ump-menu-up').on('click', function(){
-		$.fn.loadContent( '#ump-content-up', 'Umbrella Portners', 1); 
-	});  
+		// menu click in bussiness growth executive
+		$('#ump-menu-up').on('click', function(){
+			$.fn.loadContent( '#ump-content-up', 'Umbrella Portners', 1); 
+		});  
   
 	// generate the total unread notifications and check notification every 5 mins 
 	// query total notifications now
