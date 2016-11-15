@@ -35,12 +35,19 @@
     $tickets = ump_get_notification_by_page($tickets, $_SESSION['ump_total_ticket_per_page'],  $page); 
    // if(count($tickets) < 0) {return 0; }
             // exit;
+             
+            // print "<pre>";
+            //     print_r($_SESSION);
+            // print "</pre>"; 
+            // print "Test" . $_SESSION['ump_tickets_with_latest_reply_fresh']['loaded'];
 ?>
 <div class="bs-example" data-example-id="list-group-custom-content">
     <div class="list-group"> 
         <?php  
-        print "<div style='display:none'><loaded>" . $_SESSION['ump_total_ticket_per_page']['loaded'] . "<loaded></div>";
-          print "<div style='display:none'><totalTickets>" . count($tickets) . "<totalTickets></div>"; 
+        // print "test";
+        print "<span style='display:none'>" . $_SESSION['ump_tickets_with_latest_reply_fresh']['loading_session_status'] . '</span>';
+        print "<div style='display:none'><totalTickets>" . count($tickets) . "<totalTickets></div>"; 
+
         for ($i=0; $i <count($tickets) ; $i++) :
 
                 $notificationStatus  = 'unread';

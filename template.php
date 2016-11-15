@@ -21,7 +21,14 @@ function ump_messaging_dashboard_func($atts, $content = null) {
 </div> 
 <?php  
 }  
-function ump_assets() { ?>
+function ump_assets() { 
+
+$site_url = 'http://localhost/practice/wordpress';
+
+
+
+
+  ?>
 
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -29,8 +36,8 @@ function ump_assets() { ?>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  
-  <script src="<?php site_url(); ?>/wp-content/plugins/umbrella-messaging-portal/assets/js/custom_jquery.js" type="text/javascript"></script>  
-  <link rel="stylesheet" href="<?php site_url(); ?>/wp-content/plugins/umbrella-messaging-portal/assets/css/custom_style.css" />
+  <script src="<?php print $site_url ; ?>/wp-content/plugins/umbrella-messaging-portal/assets/js/custom_jquery.js" type="text/javascript"></script>  
+  <link rel="stylesheet" href="<?php print $site_url; ?>/wp-content/plugins/umbrella-messaging-portal/assets/css/custom_style.css" />
  
   <style type="text/css" media="screen">
         .unread {

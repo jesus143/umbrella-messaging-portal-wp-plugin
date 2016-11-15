@@ -1,8 +1,6 @@
 <?php   
 require ('config.php'); 
- 
-// this will be used to check if the session is loaded
-$_SESSION['ump_total_ticket_per_page']['loaded'] = 'yes';
+
 
 // get all tickets online by specific user
 $_SESSION['ump_tickets_with_latest_reply_fresh'] = ump_retrieve_freshdesk_data(100);  
@@ -32,4 +30,9 @@ $_SESSION['ump_tickets_with_latest_reply']['total_pagination']['up'] = ump_count
 // print "<pre>"; 
 // 	print_r($_SESSION['ump_tickets_with_latest_reply']);  
 // print "</pre>"; 
+  
+
+$_SESSION['ump_tickets_with_latest_reply_fresh']['loading_session_status'] = 'loaded-session'; 
+
+
 ump_pre_print_r($_SESSION['ump_tickets_with_latest_reply']); 

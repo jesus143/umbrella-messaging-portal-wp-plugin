@@ -1,4 +1,4 @@
-<?php
+<?php 
 error_reporting(1);
 /*
 Plugin Name: Umbrella Messaging portal
@@ -7,8 +7,7 @@ Description:  This plugin integrate with Freshdesck and OP
 Author: Jesus Erwin Suarez
 Version: 1
 Author URI: http://webuildyoursite.servebeer.com/
-*/ 
- // unset($_SESSION);
+*/  
 /**
  * generate barcode
  */  
@@ -56,6 +55,14 @@ require_once( 'includes/helper.php' );
 require_once( 'Model/Ump_User_Fd.php');
 require_once( 'Controller/Ump_Ticket_Controller.php');
  
+
+
+// this will unset session so that the stored fd data will be removed when new partnert logged in
+// if($_SESSION['ump_current_user_email'] != wp_get_current_user()->user_email) {
+// 	print "<br><br><br> new usrs was logged in " . $_SESSION['ump_current_user_email'] . ' != ' . wp_get_current_user()->user_email;
+//  	 unset($_SESSION['ump_tickets_with_latest_reply']); 
+// }
+
 $_SESSION['ump_current_user_name']  = wp_get_current_user()->display_name;
 $_SESSION['ump_current_user_email'] = wp_get_current_user()->user_email;
 $_SESSION['ump_support_user_email'] = 'support@umbrellasupport.freshdesk.com';
@@ -82,5 +89,6 @@ register_activation_hook( __FILE__, 'ump_install_table');
  * Admin menu
  */
 add_action("admin_menu", "ump_admin_menu"); 
- 
+// print "<br><br><br>";
+//  print site_url();
 require "template.php";

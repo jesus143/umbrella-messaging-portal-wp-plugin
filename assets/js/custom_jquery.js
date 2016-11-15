@@ -2,24 +2,17 @@
  * Reminder we need to set the query to api 1 time every 5 mins    
  * You should be update the freshdesk status every 5 mins
  */  
-
-
-
-
+ 
 // console.log("host")
 obj = new Object(); 
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 	obj.site_plugin_url = 'http://localhost/practice/wordpress/wp-content/plugins/umbrella-messaging-portal';  
-    alert("It's a local server!");
+    // alert("It's a local server!");
 } else {
 	obj.site_plugin_url = 'http://testing.umbrellasupport.co.uk/wp-content/plugins/umbrella-messaging-portal';  
 }
 
-
-
-
-
-
+ 
 (function ( $ ) { 
 	$.fn.loadNotificationPagination = function( tab_footer_content, tab_name) {
   		var loadUrl = obj.site_plugin_url + '/assets/img/icon/box.gif'; 
@@ -46,15 +39,24 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 		$.get( obj.site_plugin_url + "/views/content.php", { tab:tab, page:page } ) 
 		.done(function( data ) {    
 			 // console.log(data); 
-			 var totalNoti = data.split('<totalTickets>')[1]; 
-			 var isLoaded = data.split('<loaded>')[1];  
-			 console.log(" total noti " + totalNoti + " loaded " + isLoaded);
+			 var totalNoti1 = data.split('<totalTickets>'); 
+
+
+
+			 console.log(data);
+
+			var isLoaded = data.search("loaded-session");
+			  // console.log(" 0 "  + totalNoti1[0] + " 1 = "+  totalNoti1[1] + " 2 = " + totalNoti1[2]);
+			var  totalNoti = totalNoti1[1];
+
+			 // var isLoaded = data.split('<loadedstatus>')[1];  
+			 console.log(" total content result = " + totalNoti + " and is session is loaded? =" + isLoaded);
 			 // If total notification result is 
-			 if( totalNoti < 1 &&  isLoaded == 'yes') {
+			 if( totalNoti < 1 &&  isLoaded >= 0) {
 			 	 // $.fn.startCheckTotalNotifications();
 			 	 // $.fn.loadContent(); 
 			 	 console.log("session data is loaded but you don't have ticket to display"); 
-			 }  else if (totalNoti < 1 && isLoaded == '') {
+			 }  else if (totalNoti < 1 && isLoaded < 0) {
 			 	// reload again if the session is failed to load
 			 	console.log(" session data is not loaded, then load again"); 
 			  	
@@ -181,9 +183,12 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
  
  	//http://localhost/practice/wordpress/wp-content/plugins/umbrella-messaging-portal/
 	$.fn.loadFreshdeskData = function(){  
+		console.log("loading data from freshdesk");
 		$.get( obj.site_plugin_url + "/views/generate-freshdesk-local.php" ) 
 		.done(function( data ) {  
 
+
+			console.log("data from freshdesk successfully loaded to your local");
 			// load pagination 
 	  	 	setTimeout(function(){  
 		 		$.fn.loadNotificationPagination('#ump-footer-bge', 'Business Growth Executed');
@@ -217,11 +222,9 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 			setTimeout(function(){   
 		 		$.fn.loadContent( '#ump-content-up', 'Umbrella Portners', 1); 
 			}, 8000); 
-
-
-
-			// console.log("finish generating freshdesk data"); 
-			// console.log( data );
+ 
+			console.log("finish generating freshdesk data"); 
+			console.log( data );
 		});     
 		// console.log("finish generating freshdesk data"); 
   	}     
