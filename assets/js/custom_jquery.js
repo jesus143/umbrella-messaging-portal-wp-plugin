@@ -3,10 +3,14 @@
  * You should be update the freshdesk status every 5 mins
  */  
 
+
+
+
+// console.log("host")
 obj = new Object(); 
 if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 	obj.site_plugin_url = 'http://localhost/practice/wordpress/wp-content/plugins/umbrella-messaging-portal';  
-    //alert("It's a local server!");
+    alert("It's a local server!");
 } else {
 	obj.site_plugin_url = 'http://testing.umbrellasupport.co.uk/wp-content/plugins/umbrella-messaging-portal';  
 }

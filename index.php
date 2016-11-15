@@ -37,12 +37,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 
 
+
+
 //$_SESSION['ump_current_user_email'] = 'enquiries@umbrellasupport.co.uk';
 
 // Load plugin class files
  
 require_once( ABSPATH . 'wp-includes/user.php' );
 require_once( ABSPATH . 'wp-includes/pluggable.php' ); 
+require_once( ABSPATH . 'wp-includes/link-template.php' ); 
+
+
 require_once( 'includes/wpdb_queries.class.php');
 require_once( 'includes/class-ump-notification-db.php' );
 require_once( 'includes/class-ump-fd.php' );
@@ -77,6 +82,5 @@ register_activation_hook( __FILE__, 'ump_install_table');
  * Admin menu
  */
 add_action("admin_menu", "ump_admin_menu"); 
-
  
 require "template.php";

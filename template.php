@@ -28,9 +28,9 @@ function ump_assets() { ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   
-  <script src="http://localhost/practice/wordpress/wp-content/plugins/umbrella-messaging-portal/assets/js/custom_jquery.js" type="text/javascript"></script>  
-  <link rel="stylesheet" href="http://localhost/practice/wordpress/wp-content/plugins/umbrella-messaging-portal/assets/css/custom_style.css" />
+ 
+  <script src="<?php site_url(); ?>/wp-content/plugins/umbrella-messaging-portal/assets/js/custom_jquery.js" type="text/javascript"></script>  
+  <link rel="stylesheet" href="<?php site_url(); ?>/wp-content/plugins/umbrella-messaging-portal/assets/css/custom_style.css" />
  
   <style type="text/css" media="screen">
         .unread {
