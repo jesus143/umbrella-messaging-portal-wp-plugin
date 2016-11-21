@@ -7,46 +7,15 @@ Description:  This plugin integrate with Freshdesck and OP
 Author: Jesus Erwin Suarez
 Version: 1
 Author URI: http://webuildyoursite.servebeer.com/
-*/  
-/**
- * generate barcode
- */  
- // add_shortcode("mifoaf_page_index", "mifoaf_page_index_func");  
-
- // require "functions.php"; 
-/*
- * Plugin Name: Messaging Integration for OP and FD
- * Version: 1.0
- * Plugin URI: http://www.hughlashbrooke.com/
- * Description: This plugin integrate with Freshdesck and OP 
- * Author: Jesus Erwin Suarez
- * Author URI: http://webuildyoursite.servebeer.com/
- * Requires at least: 4.0
- * Tested up to: 4.0
- *
- * Text Domain: wordpress-plugin-template
- * Domain Path: /lang/
- *
- * @package WordPress
- * @author Hugh Lashbrooke
- * @since 1.0.0
- */
+*/   
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-
-
-
-
-
-//$_SESSION['ump_current_user_email'] = 'enquiries@umbrellasupport.co.uk';
-
-// Load plugin class files
  
+// load files
 require_once( ABSPATH . 'wp-includes/user.php' );
 require_once( ABSPATH . 'wp-includes/pluggable.php' ); 
 require_once( ABSPATH . 'wp-includes/link-template.php' ); 
-
-
+  
 require_once( 'includes/wpdb_queries.class.php');
 require_once( 'includes/class-ump-notification-db.php' );
 require_once( 'includes/class-ump-fd.php' );
@@ -54,15 +23,7 @@ require_once( 'Model/UmpNotificationReading.php');
 require_once( 'includes/helper.php' );
 require_once( 'Model/Ump_User_Fd.php');
 require_once( 'Controller/Ump_Ticket_Controller.php');
- 
-
-
-// this will unset session so that the stored fd data will be removed when new partnert logged in
-// if($_SESSION['ump_current_user_email'] != wp_get_current_user()->user_email) {
-// 	print "<br><br><br> new usrs was logged in " . $_SESSION['ump_current_user_email'] . ' != ' . wp_get_current_user()->user_email;
-//  	 unset($_SESSION['ump_tickets_with_latest_reply']); 
-// }
-
+  
 $_SESSION['ump_current_user_name']  = wp_get_current_user()->display_name;
 $_SESSION['ump_current_user_email'] = wp_get_current_user()->user_email;
 $_SESSION['ump_support_user_email'] = 'support@umbrellasupport.freshdesk.com';

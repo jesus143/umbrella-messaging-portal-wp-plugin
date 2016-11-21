@@ -1,10 +1,8 @@
 <?php   
 require ('config.php'); 
-
-
-// get all tickets online by specific user
-$_SESSION['ump_tickets_with_latest_reply_fresh'] = ump_retrieve_freshdesk_data(100);  
  
+// get all tickets online by specific user
+$_SESSION['ump_tickets_with_latest_reply_fresh'] = ump_retrieve_freshdesk_data(100);   
 // get all tickets 
 $_SESSION['ump_tickets_with_latest_reply'] = ump_generate_freshdesk_data($_SESSION['ump_tickets_with_latest_reply_fresh']); 
 
@@ -30,9 +28,8 @@ $_SESSION['ump_tickets_with_latest_reply']['total_pagination']['up'] = ump_count
 // print "<pre>"; 
 // 	print_r($_SESSION['ump_tickets_with_latest_reply']);  
 // print "</pre>"; 
-  
-
+   
 $_SESSION['ump_tickets_with_latest_reply_fresh']['loading_session_status'] = 'loaded-session'; 
 
-
+print "this is the sessoion";
 ump_pre_print_r($_SESSION['ump_tickets_with_latest_reply']); 

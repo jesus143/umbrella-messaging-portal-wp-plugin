@@ -1,16 +1,12 @@
 <?php 	
 
 use Ump\UmpFd;   
- 
-
-
-
-
+  
 function ump_messaging_dashboard_func($atts, $content = null) {     
-   ump_assets();    
+   ump_assets();      
 ?>
 <div class="container">  
- <?php
+ <?php 
     if($_GET['section']=='message-notification') {
         require('views/notification.php');
     } else if($_GET['section']=='message-details') {
@@ -24,8 +20,7 @@ function ump_messaging_dashboard_func($atts, $content = null) {
 function ump_assets() { 
 
 $site_url = 'http://localhost/practice/wordpress';
-
-
+$site_url = site_url();
 
 
   ?>

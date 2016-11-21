@@ -206,7 +206,10 @@ function ump_sort_ticket_by_unread_notification($tickets) {
 
 	$notifications = []; 
 
+
+	// ump_pre_print_r($tickets);
 	// start the filter and sort
+	// print count($tickets);
 	for ($i=0; $i <count($tickets) ; $i++) :   
 
 		$notificationStatus  		= 'unread';
@@ -221,14 +224,24 @@ function ump_sort_ticket_by_unread_notification($tickets) {
 	    if(ump_is_read($latestReply, get_current_user_id(), $ticketId, ump_get_reply_id($latestReply)) == true) { 
 	    	// get all the ticket not opened and replied by the support
 	    	$tickets[$i]['is_read'] = 'yes';
-			$notifications_read[] = $tickets[$i]; 
-	    } else {
+			$notifications_read[] = $tickets[$i];  
+	    } else { 
 	    	// get all the ticket that is already replied by ticket requester and or replied by support and viewed by the ticket requester
 	    	$tickets[$i]['is_read'] = 'no';
 	    	$notifications_unread[] = $tickets[$i]; 
 	    }   
 	endfor;   
-	$notifications = array_merge($notifications_unread, $notifications_read); 
+
+
+
+	// avoid some error if other array is empty
+	if(count($notifications_read) > 0 and count($notifications_unread) > 0) {
+		$notifications = array_merge($notifications_unread, $notifications_read); 
+	} else if (count($notifications_read) > 0) {
+		$notifications = $notifications_read;
+	} else {
+		$notifications = $notifications_unread;
+	} 
 	 return $notifications; 
 }  
 /**
@@ -284,8 +297,8 @@ function ump_retrieve_freshdesk_data($limit=10) {
 	return Ump\UmpFd::fetchTickets('email', $_SESSION['ump_current_user_email'], $limit); 
 }
 
-function ump_generate_freshdesk_data($tickets) {  
- 	$ticketsWithLatestComments = ump_sort_ticket_by_unread_notification($tickets);  
+function ump_generate_freshdesk_data($tickets) {   
+ 	$ticketsWithLatestComments = ump_sort_ticket_by_unread_notification($tickets);   
  	return $ticketsWithLatestComments;
 }
 
