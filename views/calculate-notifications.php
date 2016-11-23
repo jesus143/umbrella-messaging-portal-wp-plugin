@@ -4,6 +4,12 @@
     require ('config.php');     
 	
     $tab = $_GET['tab'];     
+
+ 
+
+
+
+
     if($tab == 'Business Growth Executed') {  
     	// $_SESSION['tickets'] = ump_separate_to_tabs($_SESSION['ump_tickets_with_latest_reply']);  
         // $tickets = $_SESSION['tickets']['umbrella_growth_executive'];      

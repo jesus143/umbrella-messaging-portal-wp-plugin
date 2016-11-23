@@ -32,3 +32,9 @@
     // require 'E:/xampp/htdocs/practice/wordpress/wp-content/plugins/umbrella-messaging-portal/index.php';
     // require 'E:/xampp/htdocs/practice/wordpress/wp-content/plugins/umbrella-messaging-portal/includes/class-ump-fd.php'; 
     // print "tes";
+    // 
+    // 
+
+ 
+    // $file = 'tickets.txt';
+    // $_SESSION['ump_tickets_with_latest_reply'] = unserialize(file_get_contents($file));   

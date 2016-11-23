@@ -37,7 +37,8 @@ $_SESSION['ump_total_ticket_per_page'] = 5;
  * @since  1.0.0
  * @return object WordPress_Plugin_Template
  */
-add_shortcode("ump_messaging_dashboard", "ump_messaging_dashboard_func");  
+add_shortcode("ump_messaging_dashboard", "ump_messaging_dashboard_func");   
+add_shortcode("ump_comment_details_embedded", "ump_comment_details_embedded_func");  
 
 
  /**

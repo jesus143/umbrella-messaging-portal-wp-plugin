@@ -3,6 +3,7 @@ require ('config.php');
  
 // get all tickets online by specific user
 $_SESSION['ump_tickets_with_latest_reply_fresh'] = ump_retrieve_freshdesk_data(100);   
+
 // get all tickets 
 $_SESSION['ump_tickets_with_latest_reply'] = ump_generate_freshdesk_data($_SESSION['ump_tickets_with_latest_reply_fresh']); 
 
@@ -31,5 +32,21 @@ $_SESSION['ump_tickets_with_latest_reply']['total_pagination']['up'] = ump_count
    
 $_SESSION['ump_tickets_with_latest_reply_fresh']['loading_session_status'] = 'loaded-session'; 
 
-print "this is the sessoion";
-ump_pre_print_r($_SESSION['ump_tickets_with_latest_reply']); 
+
+// print "<br><Br><br><Br> serialized <br><br><br>";
+//  print"<pre>";
+// print "<serialized>"; 
+// print_r($_SESSION['ump_tickets_with_latest_reply']);
+// print "</serialized>";
+
+//  $file = 'tickets.txt';
+// Ouvre un fichier pour lire un contenu existant
+// $current = file_get_contents($file);
+// Ajoute une personne
+
+// 
+ 	// print_r(unserialize($current)); 
+
+ // print "</pre>";
+// Écrit le résultat dans le fichier
+// file_put_contents($file, serialize($_SESSION['ump_tickets_with_latest_reply']));

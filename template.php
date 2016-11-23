@@ -90,3 +90,11 @@ function ump_admin_view () {
 
     <?php 
 }
+
+function ump_comment_details_embedded_func() {
+    ?>  
+    <div class="ump-embedded-ticket-details"> 
+      <iframe scrolling="no" style="width:100%;height:393px;"  id='frame' src="https://umbrellasupport.freshdesk.com/support/tickets/33#reply-to-ticket"></iframe>
+    </div> 
+    <?php 
+}

@@ -1,5 +1,8 @@
 <?php 
     require ('config.php');  
+
+  
+
     // print "pagination temporary disabled";
     // exit;
     // $_SESSION['tickets'] = ump_separate_to_tabs(Ump\UmpFd::fetchTickets('email', $_SESSION['ump_current_user_email'])); 
