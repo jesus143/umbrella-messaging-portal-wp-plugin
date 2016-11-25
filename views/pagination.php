@@ -20,7 +20,7 @@
         // $tickets = ump_sort_ticket_by_unread_notification($tickets);  
     } else if ($tab == 'Umbrella Portners') {   
         // $tickets = '';
-        print "<h1>Pagination Comming soon..</h1>";
+        // print "<h1>Pagination Comming soon..</h1>";
         // $tickets = $_SESSION['tickets']['umbrella_partners'];
         $totalPagination = $_SESSION['ump_tickets_with_latest_reply']['total_pagination']['up'];
         $content_id = '#ump-footer-um';

@@ -1,6 +1,14 @@
 .ump-footer-loader {
-	height: 100px;
+	height: 20px;
 }
 .ump-content-loader {
-	height: 50px;
+	height: 20px;
+}
+
+.ump-content-bge, .ump-content-um, .ump-content-up {
+	min-height:100px;
+
+}
+#menu1, #menu2, #menu3 {
+	background-color: white;
 }

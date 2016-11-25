@@ -19,8 +19,8 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 
 	// load pagination
  	setTimeout(function(){   
-	 	startCheckingPagination() 
- 		startCheckingContent() 	
+	 	startCheckingPagination();
+ 		startCheckingContent();
 		startCheckTotalNotifications();
 	}, 2000);  
     
@@ -29,9 +29,10 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
    function loadNotificationPagination( tab_footer_content, tab_name) {
 	   	console.log( "1. Start loading " + tab_name + " pagination..... ");
   		var loadUrl = obj.site_plugin_url + '/assets/img/icon/box.gif'; 
-	 	$( tab_footer_content ).html("<img class='ump-footer-loader' src='"  + loadUrl +"' />");
+	 	$( tab_footer_content + "-loading" ).html("<img class='ump-footer-loader' src='"  + loadUrl +"' />");
 		$.get( obj.site_plugin_url + "/views/pagination.php", { tab: tab_name } ) 
 		.done(function( data ) {
+			$( tab_footer_content + "-loading" ).html("");
 		 	console.log( "1.1 Finished pagination " + tab_name + "loaded " );
 		    $( tab_footer_content ).html(data);
 		});    
@@ -43,10 +44,11 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 		console.log("2. Starting loading content for " + tab + " ...."); 
 
   		var loadUrl = obj.site_plugin_url + '/assets/img/icon/box.gif'; 
-	 	$( content ).html("<img src='"  + loadUrl +"' />");
+	 	$( content + "-loading" ).html("<img class='ump-footer-loader' src='"  + loadUrl +"' />");
 		$.get( obj.site_plugin_url + "/views/content.php", { tab:tab, page:page } ) 
-		.done(function( data ) {    
+		.done(function( data ) {
 
+			$( content + "-loading" ).html("");
 			
 			 var totalNoti1 = data.split('<totalTickets>'); 
  
@@ -73,19 +75,19 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 	 			// load notification in bge  
 				// load notification in um 
 				// load notification in up 
-		 		// load content   
-	 			startCheckingPagination() 
-		 		startCheckingContent() 	
+		 		// load content
+	 			startCheckingPagination();
+		 		startCheckingContent();
 				startCheckTotalNotifications();
 			 } else {
 			 	console.log("2.4 Ticket are successfully loaded, display content, notification and pagination now..");
 			 }
-			 // console.log("total tickets index none " + TotalMessage); 
-			 // console.log("total tickets index 0 " +TotalMessage[0]); 
-			 // console.log("total tickets index 1 " +TotalMessage[1]);  
+			 // console.log("total tickets index none " + TotalMessage);
+			 // console.log("total tickets index 0 " +TotalMessage[0]);
+			 // console.log("total tickets index 1 " +TotalMessage[1]);
 			 // if empty then call back again notification and content
 			 // startCheckTotalNotifications()
-			 // $.fn.loadContent 
+			 // $.fn.loadContent
 		    // console.log( "Data Loaded: " + data );
 		    console.log("2.5 Finished loading content for " + tab + " ...." ); 
 		    $( content ).html(data);
@@ -130,12 +132,13 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 	//http://localhost/practice/wordpress/wp-content/plugins/umbrella-messaging-portal/
 	function loadFreshdeskData () {  
 		console.log("4.1 Start loading all freshdesk data..");
-		// console.log("loading data from freshdesk");
-		$.get( obj.site_plugin_url + "/views/generate-freshdesk-local.php" ) 
+		// console.log("loading data from freshdesk"); 
+		$.get( obj.site_plugin_url + "/views/generate-freshdesk-local.php" )  
+		
 		.done(function( data ) {   
 			console.log("4.2 Finished fresh-desk data loaded and refresh content, unread notification and pagination..");
-		   	startCheckingPagination() 
-	 		startCheckingContent() 	
+		   	startCheckingPagination();
+	 		startCheckingContent();
 			startCheckTotalNotifications();
 		});     
 		 
@@ -167,10 +170,10 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 function umpLoadContent(content_id, tab, page, div_id) {   
  	// query page content
 	var loadUrl = obj.site_plugin_url + '/assets/img/icon/box.gif'; 
- 	$( content_id ).html("<img src='"  + loadUrl +"' />");
+ 	$( content_id + '-loading' ).html("<img class='ump-footer-loader' src='"  + loadUrl +"' />");
 	$.get( obj.site_plugin_url + "/views/content.php", { tab: tab, page:page } ) 
 	.done(function( data ) {
-
+		$( content_id + '-loading' ).html("");
 	    console.log( " new tab content for " + content_id  +  " is loaded ... " );
 	    $( content_id ).html(data);
 	});      

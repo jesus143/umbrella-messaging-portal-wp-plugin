@@ -102,8 +102,13 @@ function ump_get_reply_user_name($response) {
 	}
 
 }
-function ump_get_reply_body($response) {
-	return $response['body'];
+function ump_get_reply_body($response) {  
+	$content = strip_tags($response['body']); 
+	if(strlen($content) > 50){
+			return substr($content, 0, 50) . '...'; 
+	} else {
+		return $content;
+	}  
 }
 function ump_get_reply_id($response){
 	return $response['id'];
@@ -343,10 +348,22 @@ function ump_ticket_notification_visited($ticketId, $tab) {
 function ump_get_site_full_url() {
 	$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	return $actual_link;
-} 
-// function ump_is_localhost() {  
-//     $whitelist = array( '127.0.0.1', '::1' );
-//     if( in_array( $_SERVER['REMOTE_ADDR'], $whitelist) ) { 
-//         return true;
-//     } 
-// }
+}   
+
+function ump_convert_date_time_human_readable($dateTime) {
+
+	return date("F jS, Y", strtotime($dateTime));
+
+}
+function ump_get_date_time_formatted($dateTime) 
+{
+	// $date  = '2016-11-18T12:00:45Z';  
+	$date = str_replace('Z', '', $dateTime); 
+	$date = explode('T', $date); 
+	$d = $date[0];
+	$t = $date[1]; 
+	// print "date $d time $t"; 
+	return $d . ' ' . $t;
+}
+
+ 

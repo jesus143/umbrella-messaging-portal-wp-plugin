@@ -36,5 +36,5 @@
     // 
 
  
-    // $file = 'tickets.txt';
-    // $_SESSION['ump_tickets_with_latest_reply'] = unserialize(file_get_contents($file));   
+//     $file = 'tickets.txt';
+//     $_SESSION['ump_tickets_with_latest_reply'] = unserialize(file_get_contents($file));

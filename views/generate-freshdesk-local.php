@@ -1,4 +1,5 @@
 <?php   
+//exit;
 require ('config.php'); 
  
 // get all tickets online by specific user

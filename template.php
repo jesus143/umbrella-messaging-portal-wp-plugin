@@ -5,16 +5,18 @@ use Ump\UmpFd;
 function ump_messaging_dashboard_func($atts, $content = null) {     
    ump_assets();      
 ?>
-<div class="container">  
+    <style type="text/css" media="screen">
+      #page-content h2 {
+        display:none;
+      }
+    </style>
  <?php 
     if($_GET['section']=='message-notification') {
         require('views/notification.php');
     } else if($_GET['section']=='message-details') {
         require('views/details.php');
     }  
-?>
-
-</div> 
+?> 
 <?php  
 }  
 function ump_assets() { 
