@@ -10,13 +10,13 @@ function ump_messaging_dashboard_func($atts, $content = null) {
         display:none;
       }
     </style>
- <?php 
-    if($_GET['section']=='message-notification') {
-        require('views/notification.php');
-    } else if($_GET['section']=='message-details') {
-        require('views/details.php');
-    }  
-?> 
+<?php
+  if($_GET['section']=='message-details') {
+    require('views/details.php');
+  } else {
+    require('views/notification.php');
+  }
+?>
 <?php  
 }  
 function ump_assets() { 
@@ -93,6 +93,9 @@ function ump_admin_view () {
     <?php 
 }
 
+/**
+ * Not in used
+ */
 function ump_comment_details_embedded_func() {
     ?>  
     <div class="ump-embedded-ticket-details"> 

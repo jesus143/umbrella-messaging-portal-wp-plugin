@@ -1,6 +1,8 @@
 <?php   
 //exit;
-require ('config.php'); 
+require ('config.php');
+
+
  
 // get all tickets online by specific user
 $_SESSION['ump_tickets_with_latest_reply_fresh'] = ump_retrieve_freshdesk_data(100);   

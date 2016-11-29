@@ -13,7 +13,7 @@
         $tickets = $_SESSION['tickets']['umbrella_messages']; 
     }else if($tab == 'Umbrella Portners') {    
         $tabAbbr='up';
-        print "<h1>Comming soon..</h1>";
+        print "<br><br><br><br><br> <center><h3>Comming soon..</h3></center>";
         exit;
     }  
     $tickets = ump_get_notification_by_page($tickets, $_SESSION['ump_total_ticket_per_page'],  $page);  
@@ -24,7 +24,13 @@
         <?php   
         print "<span style='display:none'>" . $_SESSION['ump_tickets_with_latest_reply_fresh']['loading_session_status'] . '</span>';
         print "<div style='display:none'><totalTickets>" . count($tickets) . "<totalTickets></div>";  
-        for ($i=0; $i <count($tickets) ; $i++) : 
+        for ($i=0; $i <count($tickets) ; $i++) :
+
+                // print " status number " . $tickets[$i]['status'];
+                // print "<pre>";
+                // print_r($tickets[$i]);
+                // print "</pre>";
+                $status              = getTicketStatusName($tickets[$i]['status']);
                 $notificationStatus  = 'unread'; 
                 $ticketId            = $tickets[$i]['id'];
                 $description         = $tickets[$i]['description'];
@@ -39,12 +45,13 @@
                 ?> 
             
             <!-- start clickable notification -->
-            <a style='background-color:white;'  class="list-group-item <?php print $notificationStatus; ?>" href="?section=message-details&ticketId=<?php print $tickets[$i]['id']; ?>&replyId=<?php print ump_get_reply_id($latestReply); ?>&tab=<?php print $tabAbbr; ?>" class="list-group-item <?php print $notificationStatus; ?> ">   
+            <a style='background-color:white;'  class="list-group-item <?php print $notificationStatus; ?>" href="?section=message-details&ticketId=<?php print $tickets[$i]['id']; ?>&replyId=<?php print ump_get_reply_id($latestReply); ?>&tab=<?php print $tabAbbr; ?>" class="list-group-item <?php print $notificationStatus; ?> ">
 
                 <!-- Display replied date --> 
-                <span class="pull-right" style="font-size:10px">  
-                    <?php print  ump_convert_date_time_human_readable(ump_get_date_time_formatted($replyCreatedAt)); ?> 
-                </span>  
+                <span class="pull-right" style="font-size:10px">
+                    <?php print  ump_convert_date_time_human_readable(ump_get_date_time_formatted($replyCreatedAt)); ?>
+                </span>
+
 
                 <!-- print paper click if the latest reply has files -->
                 <div class="pull-right" style="margin-right: 5px;">
@@ -57,10 +64,8 @@
                             endfor; 
                         } 
                     ?>   
-                </div>         
-
+                </div>
                 <!-- Set if envelop if open or not -->
-
                 <?php
                     if($notificationStatus == 'read') {
                         $envelopSrc =  site_url() . '/wp-content/plugins/umbrella-messaging-portal/assets/img/icon/open-message.png';
@@ -71,24 +76,30 @@
                     }
                 ?>
                  <img style="<?php print $envelopStyle; ?>" class="pull-left" src="<?php print $envelopSrc; ?>" alt="envelop" />
-
                     <!-- ticket subject -->
                     <?php if($notificationStatus == 'unread') { print '<b>'; } ?> 
                         <span class=""><?php print $subject; ?></span> 
-                    <?php if($notificationStatus == 'unread') { print '</b>'; } ?> 
+                    <?php if($notificationStatus == 'unread') { print '</b>'; } ?>
 
-                    <!-- replied details -->
+
+                <!-- replied details -->
                     <div style="padding-left:30px;">
                         <span class="text-muted" style="font-size: 11px;">    
-                                <!-- replied info  -->
-                                <?php if($notificationStatus == 'unread') { print '<b>'; } ?> 
-                                    <?php print (ump_get_reply_user_name($latestReply))? "From: " . strip_tags(ump_get_reply_user_name($latestReply)) : "No reply recieved yet"; ?> 
-                                <?php if($notificationStatus == 'unread') { print '</b>'; } ?>   
-                                <!-- Comment reply -->
-                                <br>
-                                <?php print (ump_get_reply_user_name($latestReply))?  ump_get_reply_body($latestReply)  : null; ?>  
+                            <!-- replied info  -->
+                            <?php if($notificationStatus == 'unread') { print '<b>'; } ?>
+                                <?php print (ump_get_reply_user_name($latestReply))? "From: " . strip_tags(ump_get_reply_user_name($latestReply)) : "No reply recieved yet"; ?>
+                            <?php if($notificationStatus == 'unread') { print '</b>'; } ?>
+                            <!-- Comment reply -->
+                            <br>
+                            <?php print (ump_get_reply_user_name($latestReply))?  ump_get_reply_body($latestReply)  : null; ?>
                         </span> 
-                    </div> 
+                    </div>
+
+                    <div class="pull-right" style="margin-top:-17px;font-size:10px">
+                        <?php print  $status; ?>
+                    </div>
+
+
 
                 <!-- end clickable link to ticket details -->
             </a>     

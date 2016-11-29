@@ -64,7 +64,7 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                                 <div class="comment-user"><i class="fa fa-user"></i> <?php print $ticketOwnerName; ?></div>
                                 <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> <?php print $dateTimeCreatedAt; ?></time> 
                               </header>
-                              <div class="comment-post">
+                              <div class="comment-post" style="clear:both">
                                     <?php print $ticketDescription; ?>
                               </div> 
                             </div>
@@ -126,15 +126,14 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                                             endfor; 
                                         } 
                                     ?>  
-                                </div> 
-
+                                </div>
 
                                   <header class="text-left">
                                     <div class="comment-user"><i class="fa fa-user"></i> <?php print $replyName; ?> </div>
                                     <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i><?php print ' ' . $dateTimeCreatedAt; ?></time>
                                    
                                   </header>
-                                  <div class="comment-post">
+                                  <div class="comment-post" style="clear:both">
                                         <?php print strip_tags($body); ?>
                                   </div> 
                                 </div>

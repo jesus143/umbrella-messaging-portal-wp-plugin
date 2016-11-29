@@ -366,4 +366,26 @@ function ump_get_date_time_formatted($dateTime)
 	return $d . ' ' . $t;
 }
 
- 
+function getTicketStatusName($status)
+{
+
+	switch($status)
+	{
+		case 2:
+			return '<span style="color:blue;font-weight: bold">Open</span>';
+			break;
+		case 3:
+			return '<span style="color:orange;font-weight: bold">Pending</span>';
+			break;
+		case 4:
+			return '<span style="color:green;font-weight: bold">Resolved</span>';
+			break;
+		case 5:
+			return '<span style="color:grey;font-weight: bold">Closed</span>';
+			break;
+		default:
+			return '';
+			break;
+	}
+
+}

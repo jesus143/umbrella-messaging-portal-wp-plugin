@@ -35,9 +35,11 @@
         <div id="ump-content-bge" class="ump-content-bge" >
         </div>
         <div id="ump-content-bge-loading" > </div>
-        <div id="ump-footer-bge">
-        </div>
-        <div id="ump-footer-bge-loading" > </div>
+        <center>
+            <div id="ump-footer-bge">
+            </div>
+            <div id="ump-footer-bge-loading" > </div>
+        </center>
 
     </div> 
 
@@ -46,20 +48,22 @@
         <div id="ump-content-um" class="ump-content-um" >
         </div>
         <div id="ump-footer-um-loading" > </div>
-
-        <div id="ump-footer-um">
-        </div>
-        <div id="ump-footer-bge-loading" > </div>
+        <center>
+            <div id="ump-footer-um">
+            </div>
+            <div id="ump-footer-bge-loading" > </div>
+        </center>
     </div> 
 
     <div id="menu3" class="tab-pane fade"> 
         <div id="ump-content-up" class="ump-content-up">
         </div>
         <div id="ump-footer-up-loading" > </div>
-
-        <div id="ump-footer-up"> 
-        </div>
-        <div id="ump-footer-up-loading" > </div>
+        <center>
+            <div id="ump-footer-up">
+            </div>
+            <div id="ump-footer-up-loading" > </div>
+        </center>
     </div> 
   </div>
  
