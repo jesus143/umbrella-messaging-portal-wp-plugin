@@ -1,14 +1,61 @@
 .ump-footer-loader {
-	height: 20px;
+	height: 73px;
+	margin-left:-10px;
 }
 .ump-content-loader {
-	height: 20px;
-}
-
+	height: 30px;
+} 
 .ump-content-bge, .ump-content-um, .ump-content-up {
-	min-height:100px;
-
+	min-height:100px; 
 }
 #menu1, #menu2, #menu3 {
 	background-color: white;
+} 
+.mce-container-body {
+    background-color: #f6f6f6 !important; 
+}
+.ump-reply-ticket-submit {
+	background-color: #525151;
+	border-radius: 5px;
+	color: white;
+	padding: 2px 32px 7px 32px;
+} 	
+.comment-list time {
+	font-size:12px;
+} 
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #dddddd;
+  margin-left: 31px;
+} 
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent; 
+  border-top: 20px solid #f00;
+} 
+.ump-thumbnail {
+	padding: 4px !important;
+	width: 78px;
+}
+.ump-img-responseive {
+	width:70px !important;
+} 
+/*Update css to fix graphics*/
+.nav.nav-tabs {
+	border:none !important;
+	margin-left: 135px;
+} 
+.tab-content { 
+    width: 92%;  
+}
+#page-content  hr {   
+	display:none; 
+}  
+.ump-reply-message-container {
+	margin-left: -14px !important;
 }

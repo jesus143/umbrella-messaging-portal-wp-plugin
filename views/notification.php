@@ -2,7 +2,7 @@
   
  
 
-  <ul class="nav nav-tabs"> 
+  <ul class="nav nav-tabs"  > 
     <li class="active">
     <!-- <a data-toggle="tab" href="#home">Home</a></li> -->
     <li  class="active" id="ump-menu-bge" >
@@ -26,9 +26,9 @@
             Umbrella Partners
         </a>
     </li>
-</ul>   
+</ul>    
  
-  <div class="tab-content"> 
+  <div class="tab-content" style="width: 92%;"> 
 
     <div id="menu1" class="tab-pane fade in  active"> 
 
@@ -47,7 +47,7 @@
 
         <div id="ump-content-um" class="ump-content-um" >
         </div>
-        <div id="ump-footer-um-loading" > </div>
+        <div id="ump-content-um-loading" > </div>
         <center>
             <div id="ump-footer-um">
             </div>
@@ -58,7 +58,7 @@
     <div id="menu3" class="tab-pane fade"> 
         <div id="ump-content-up" class="ump-content-up">
         </div>
-        <div id="ump-footer-up-loading" > </div>
+        <div id="ump-content-up-loading" > </div>
         <center>
             <div id="ump-footer-up">
             </div>

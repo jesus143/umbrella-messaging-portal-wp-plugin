@@ -91,11 +91,11 @@ function ump_get_ticket_source($source){
 function ump_get_reply_user_name($response) {
 	if(count($response) > 0) {
 		if ($response['from_email'] != null) {
-			return $response['from_email'];
+			return  str_replace('"', '', $response['from_email']);
 		} else if ($response['support_email'] != null) {
-			return $response['support_email'];
+			return  str_replace('"', '', $response['support_email']);
 		} else {
-			return $_SESSION['ump_current_user_email'];
+			return  str_replace('"', '', $_SESSION['ump_current_user_email']);
 		}
 	} else {
 		return false;
@@ -104,11 +104,25 @@ function ump_get_reply_user_name($response) {
 }
 function ump_get_reply_body($response) {  
 	$content = strip_tags($response['body']); 
-	if(strlen($content) > 50){
-			return substr($content, 0, 50) . '...'; 
+	$string = '';
+
+	if(strlen($content) > 0) {
+		$string .= '<br>';
+	}
+	// line 1
+	if(strlen($content) > 50){ 
+		$string .= substr($content, 0, 50) . '...'; 
 	} else {
 		return $content;
-	}  
+	}   
+
+	// line 2
+	if(strlen($content) > 70){ 
+		$string . "<br>.." . substr($content, 60, 70) . '...'; 
+	} 
+
+	return $string; 
+ 
 }
 function ump_get_reply_id($response){
 	return $response['id'];
@@ -123,21 +137,59 @@ function ump_is_replied($response) {
 function ump_is_clicked() {
 	//
 }
+
+/**
+ * ump_is_read($latestReply, get_current_user_id(), $ticketId, ump_get_reply_id($latestReply)) == true) 
+ */
 function ump_is_read($response, $user_id, $ticket_id, $reply_id) {
 
-     if(count($response) < 1) {
-            // check if new reply
-            return true;
+	
+     if(count($response) < 1) {    
+     	$ump_query = new APP\WPDB_QUERIES(); 
+	 	$umpNotificationReady  = new Ump\UmpNotificationReading(); 
+		$reply_id = 0; 
+			// check if ticket is read 
+ 		$res = $ump_query->wpdb_get_result("SELECT * FROM wp_ump_notification_reading where reply_id = $reply_id and ticket_id = $ticket_id and user_id = $user_id", ARRAY_A);   
+			// if has a response then the ticket is read 
+ 		if(empty($res)) {  
+ 			// print "notification is unread reply_id = $reply_id and ticket_id = $ticket_id and user_id = $user_id"; 
+ 			$umpNotificationReady->insertEntry($user_id, $ticket_id, $reply_id); 
+ 			// execute insert new notification 
+ 			return false; 
+ 		}
+ 		// else no reponse then ticket is no read
+ 		else {
+ 			// print "<pre>"; 
+ 			// 	print_r($res); 
+ 			// print "</pre>"; 
+ 			// get status 
+ 			$status = $res[0]['status']; 
+ 			if($status == 'read') {
+ 				// print "return true because its read";
+ 				return true; 
+ 			} else {
+ 				// print "return false because its unread";
+ 				return false;
+ 			}
+ 			// print "notification is read";
+ 			// return false;
+ 		} 
+ 		// $reply_id = 0; 
+ 		// $ticket_id	= 1; 
+ 		// $user_id = 1; 
 
-     } else if(ump_is_replied($response)) {
+        // this ticket is new reply 
+        // check database if its open already 
+        // if opened then return true
+        // else false
+        // return false;  
 
+     } else if(ump_is_replied($response)) { 
         if(ump_process_and_get_notification_status($user_id, $ticket_id, $reply_id) == 'read') {
             return true;
         } else {
             return false;
-        }
-
-
+        } 
 	} else {
 		return true;
 
@@ -349,10 +401,15 @@ function ump_get_site_full_url() {
 	$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	return $actual_link;
 }   
+ 
+function ump_convert_time_human_readable($dateTime)
+{
+	return date("g:i:s a", strtotime($dateTime));
+}
 
 function ump_convert_date_time_human_readable($dateTime) {
 
-	return date("F jS, Y", strtotime($dateTime));
+	return date("D jS M Y", strtotime($dateTime));
 
 }
 function ump_get_date_time_formatted($dateTime) 
@@ -372,20 +429,95 @@ function getTicketStatusName($status)
 	switch($status)
 	{
 		case 2:
-			return '<span style="color:blue;font-weight: bold">Open</span>';
+			return '<span style="color:green;font-weight: bold;margin-right: 26px;font-size: 16px;">Open</span>';
 			break;
 		case 3:
-			return '<span style="color:orange;font-weight: bold">Pending</span>';
+			return '<span style="color:orange;font-weight: bold;margin-right: 26px;font-size: 16px;">Pending</span>';
 			break;
 		case 4:
-			return '<span style="color:green;font-weight: bold">Resolved</span>';
+			return '<span style="color:green;font-weight: bold;margin-right: 26px;font-size: 16px;">Resolved</span>';
 			break;
 		case 5:
-			return '<span style="color:grey;font-weight: bold">Closed</span>';
+			return '<span style="color:red;font-weight: bold;margin-right: 26px;font-size: 16px;">Closed</span>';
 			break;
 		default:
 			return '';
 			break;
-	}
-
+	} 
 }
+
+function ump_process_reply_to_a_ticket()
+{
+	if(isset($_POST['umpReplyTicketSubmit']))
+	{
+		// Upload files to wp storage
+		if ( ! function_exists( 'wp_handle_upload' ) ) {
+		    require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		}
+		for($i=0; $i<count($_FILES['file']); $i++) {  
+			$uploadedfile['name']     = $_FILES['file']['name'][$i]; 
+			$uploadedfile['type']     = $_FILES['file']['type'][$i]; 
+			$uploadedfile['tmp_name'] = $_FILES['file']['tmp_name'][$i]; 
+			$uploadedfile['error']    = $_FILES['file']['error'][$i]; 
+			$uploadedfile['size']     = $_FILES['file']['size'][$i];      
+	 		 // print_r($uploadedfile);  
+			$upload_overrides = array( 'test_form' => false ); 
+			$movefile = wp_handle_upload( $uploadedfile, $upload_overrides ); 
+			if ( $movefile && ! isset( $movefile['error'] ) ) {
+				// print "<pre>"; 
+			    // echo "File is valid, and was successfully uploaded.\n";
+			    // var_dump( $movefile );
+			    // print "</pre>"; 
+			    $attachments[] = $movefile['file']; 
+			} else { 
+				// print "<pre>"; 
+			 //    echo " error = " . $movefile['error'];
+			 //    print_r($movefile['error']);
+			 //    print "</pre>";
+			}
+		}
+		// end store file to wordpress 
+			// print_r($_FILES['ump_repy_attachment']); 
+		// print "</pre>";  
+		// exit;    
+		  // $attachments = array( WP_CONTENT_DIR . '/uploads/2016/11/Desert.jpg' );
+		// print "<pre>";  
+		// 	print_r($attachments);
+		// print "</pre>"; 
+		// exit;  
+	    $to      = $_SESSION['ump_support_user_name'] . ' <' .  $_SESSION['ump_support_user_email'] . '>';
+	    $subject = $_POST['umpReplySubject'];
+	    $body    = $_POST['umpReplyMessage'];
+	    $headers = array('Content-Type: text/html; charset=UTF-8','From: ' . $_SESSION['ump_current_user_name'] . ' <' .  $_SESSION['ump_current_user_email']  . '>');  
+
+	    $_SESSION['ump_ticket_reply_previous_posted'] = $body; 
+
+	    // print "<br>to $to  <br>subject $subject <br>body $body <br>header $header";
+	    if(wp_mail( $to, $subject, $body, $headers, $attachments)) { 
+
+	    	for($i=0; $i<count($attachments); $i++) { 
+	    		$filePath = $attachments[$i];
+		    	if(file_exists($filePath))
+				{ 
+					if(unlink( $filePath  )) { 
+						// print "<br> successfully deleted " . $filePath; 
+					} else {
+						// print "<br> failed deleted " . $filePath; 
+					}
+				}	
+			}  
+
+
+			return true;
+	        
+	        //sleep to allow load new reply and display it
+	    	// sleep(5);  
+	    } else {
+	    	return false;
+
+	        // print "<span class='alert alert-danger' >Reply failed to post.</span>";
+	    }
+
+
+	} 
+}  

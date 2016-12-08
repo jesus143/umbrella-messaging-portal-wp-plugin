@@ -1,0 +1,19 @@
+#!/usr/bin/php -q
+<?php
+//Listen to incoming e-mails
+$sock = fopen ("php://stdin", 'r');
+$email = '';
+
+//Read e-mail into buffer
+while (!feof($sock))
+{
+    $email .= fread($sock, 1024);
+}
+
+//Close socket
+fclose($sock);
+
+
+mail('mrjesuserwinsuarez@gmail.com', 'test subjec', 'contet');
+exit; 
+?>

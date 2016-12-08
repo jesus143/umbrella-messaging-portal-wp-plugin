@@ -13,12 +13,17 @@
         $tickets = $_SESSION['tickets']['umbrella_messages']; 
     }else if($tab == 'Umbrella Portners') {    
         $tabAbbr='up';
-        print "<br><br><br><br><br> <center><h3>Comming soon..</h3></center>";
+        print "<br><br> <b><span>Comming soon..</span></b>";
         exit;
     }  
     $tickets = ump_get_notification_by_page($tickets, $_SESSION['ump_total_ticket_per_page'],  $page);  
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> 
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+ <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">  -->
+    <!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script> -->
+    <!-- <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>   -->
+  
 <div class="bs-example" data-example-id="list-group-custom-content">
     <div class="list-group"> 
         <?php   
@@ -29,7 +34,9 @@
                 // print " status number " . $tickets[$i]['status'];
                 // print "<pre>";
                 // print_r($tickets[$i]);
-                // print "</pre>";
+                // print "</pre>"; 
+                // exit; 
+                $createdAt           = $tickets[$i]['created_at']; 
                 $status              = getTicketStatusName($tickets[$i]['status']);
                 $notificationStatus  = 'unread'; 
                 $ticketId            = $tickets[$i]['id'];
@@ -42,16 +49,17 @@
                 $ticketCreatedAt     = $tickets[$i]['created_at'];   
                 $attachments         = $tickets[$i]['latestReply']['attachments'];
                 $attachmentsTotal    = count($attachments);   
+                // print  $replyCreatedAt; 
                 ?> 
             
             <!-- start clickable notification -->
             <a style='background-color:white;'  class="list-group-item <?php print $notificationStatus; ?>" href="?section=message-details&ticketId=<?php print $tickets[$i]['id']; ?>&replyId=<?php print ump_get_reply_id($latestReply); ?>&tab=<?php print $tabAbbr; ?>" class="list-group-item <?php print $notificationStatus; ?> ">
 
-                <!-- Display replied date --> 
-                <span class="pull-right" style="font-size:10px">
-                    <?php print  ump_convert_date_time_human_readable(ump_get_date_time_formatted($replyCreatedAt)); ?>
-                </span>
-
+            <!-- Status -->
+            <span class="pull-right" style="font-size:12px"> 
+                 <?php print  $status; ?> 
+            </span>
+               
 
                 <!-- print paper click if the latest reply has files -->
                 <div class="pull-right" style="margin-right: 5px;">
@@ -78,7 +86,7 @@
                  <img style="<?php print $envelopStyle; ?>" class="pull-left" src="<?php print $envelopSrc; ?>" alt="envelop" />
                     <!-- ticket subject -->
                     <?php if($notificationStatus == 'unread') { print '<b>'; } ?> 
-                        <span class=""><?php print $subject; ?></span> 
+                        <div style="margin-top: 5px;" > <span  ><?php print $subject; ?></span> </div>
                     <?php if($notificationStatus == 'unread') { print '</b>'; } ?>
 
 
@@ -87,18 +95,26 @@
                         <span class="text-muted" style="font-size: 11px;">    
                             <!-- replied info  -->
                             <?php if($notificationStatus == 'unread') { print '<b>'; } ?>
-                                <?php print (ump_get_reply_user_name($latestReply))? "From: " . strip_tags(ump_get_reply_user_name($latestReply)) : "No reply recieved yet"; ?>
+                                <?php print (ump_get_reply_user_name($latestReply))? "From " . strip_tags(ump_get_reply_user_name($latestReply)) : "No reply recieved yet"; ?>
                             <?php if($notificationStatus == 'unread') { print '</b>'; } ?>
                             <!-- Comment reply -->
-                            <br>
+                       
                             <?php print (ump_get_reply_user_name($latestReply))?  ump_get_reply_body($latestReply)  : null; ?>
+                             <br>  
+                            <span style="font-size:11px; color:grey">
+                                <?php print ump_convert_time_human_readable(ump_get_date_time_formatted($createdAt)); ?>  
+                                <?php print ump_convert_date_time_human_readable(ump_get_date_time_formatted($replyCreatedAt)); ?> 
+                            </span>
                         </span> 
                     </div>
 
-                    <div class="pull-right" style="margin-top:-17px;font-size:10px">
-                        <?php print  $status; ?>
-                    </div>
+                    
+                <!-- Display replied date --> 
 
+                <div class="pull-right" style="margin-top: -30px;font-size:11px;">
+                    <?php print  '<center>' . ump_convert_time_human_readable(ump_get_date_time_formatted($createdAt)) . '</center>'; ?> 
+                    <?php print  ump_convert_date_time_human_readable(ump_get_date_time_formatted($createdAt)); ?>
+                </div>
 
 
                 <!-- end clickable link to ticket details -->

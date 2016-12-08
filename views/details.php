@@ -1,7 +1,11 @@
+
 <?php
-session_start(); 
-$_SESSION['ticketsContent'] = $_SESSION['tickets']['umbrella_growth_executive']; 
-ump_process_update_status_to_read(get_current_user_id(), $_GET['ticketId'], $_GET['replyId']); 
+session_start();   
+
+// Tickets
+$_SESSION['ticketsContent'] = $_SESSION['tickets']['umbrella_growth_executive'];  
+$replyId = (!empty($_GET['replyId'])) ? $_GET['replyId'] : 0;
+ump_process_update_status_to_read(get_current_user_id(), $_GET['ticketId'], $replyId); 
 $ticketId           = $_GET['ticketId'];
 $ticketReplies      =  Ump\UmpFd::getUserTicketReplies( $_GET['ticketId'] );
 $ticket             =  Ump\UmpFd::getSpecificTicket(  $_GET['ticketId'] );
@@ -14,51 +18,55 @@ $ticketPriority     =  $ticket['priority'];
 $ticketSource       =  $ticket['source'];
 $ticketId           =  $_GET['ticketId'];
 $ticketOwnerName    =  $_SESSION['ump_current_user_name'];
-$ticketSubjectC     = '#' . $ticketId . ' ' . $ticketSubject;
+$ticketSubjectC     =  '#' . $ticketId . ' ' . $ticketSubject;
 $dateTimeCreatedAt  = ump_convert_date_time_human_readable(ump_get_date_time_formatted($ticket['created_at']));  
+$message            = $ticket['message']; 
+// print "<pre>";  
+//     print "ticket<br>";
+//     print_r($ticket); 
+//     print "reply ticket <br>";
+//     print_r($ticketReplies);  
+// print "</pre>";  
 // get attachments
-// 
-
-
-
-
-
-if(!empty($_POST['umpReplyMessage'])) {
-    print "<div class='alert alert-success'> successfully posted response! </div>";
+//  
+// if(!empty($_POST['umpReplyMessage'])) {
+//     print "<div class='alert alert-success'> successfully posted response! </div>";
+// }  
+if($message == 'You have exceeded the limit of requests per hour') { 
+    // print "message";
+    print "<center><span style='color:red; font-size:10px;'>Warning :" . $message . "</span></center>"; 
+    // exit; 
 } 
 ump_ticket_notification_visited($ticketId, $_GET['tab']); 
 ?>  
     <link rel="stylesheet" href="<?php print site_url(); ?>/wp-content/plugins/umbrella-messaging-portal/designer/reply-design.css">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> 
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
-     
-
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>  
+      <link rel="stylesheet" href="<?php print $site_url; ?>/wp-content/plugins/umbrella-messaging-portal/assets/css/custom_style.css" />
+    
 
     <br><br>
       <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <a href="?section=message-notification">
-                <button class="btn btn-default"> Back </button> <br><br>
-            </a>
+        <div class="col-md-1"></div>
+        <div class="col-md-8 ump-reply-message-container"    >
+       
             <section class="comment-list">     
-                <ticket>
-                    <div class="row"> 
-                        <div class="col-md-2">  
-                        </div>
-                        <div class="col-md-8"> 
-                          <h4 class="ump-ticket-subject"> <?php print $ticketSubjectC; ?></h4> 
-                        </div>
-                    </div> 
+                <ticket> 
+                
+                     <a href="?section=message-notification">
+                        <button class="btn btn-default"  class="ump-reply-ticket-submit"> Back </button> <br><br>
+                    </a>
+                    <h4 class="ump-ticket-subject"> <?php print $ticketSubjectC; ?></h4> 
                     <div class="row">
                         <div class="col-md-2 col-sm-2 hidden-xs"> 
-                          <div class="thumbnail"> 
-                            <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg"> 
+                          <div  class="thumbnail ump-thumbnail"    > 
+                            <img class="img-responsive ump-img-responseive"   src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg"> 
                           </div>
                         </div> 
-                        <div class="col-md-10 col-sm-10">
-                          <div class="panel panel-default arrow left" >
+                        <div class="col-md-12 col-sm-12"> 
+                          <div class="arrow-up"> </div> 
+                          <div class="panel panel-default " >
                             <div class="panel-body">
                               <header class="text-left">
                                 <div class="comment-user"><i class="fa fa-user"></i> <?php print $ticketOwnerName; ?></div>
@@ -106,12 +114,13 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                         <div class="row"> 
                            
                             <div class="col-md-2 col-sm-2 hidden-xs"> 
-                              <div class="thumbnail"> 
-                                <img class="img-responsive" src="<?php print $profilePicSrc; ?>">
+                              <div class="thumbnail ump-thumbnail"     > 
+                                <img class="img-responsive ump-img-responseive"  src="<?php print $profilePicSrc; ?>">
                               </div>
                             </div> 
-                            <div class="col-md-10 col-sm-10">
-                              <div class="panel panel-default arrow left" >
+                            <div class="col-md-12 col-sm-12">
+                              <div class="arrow-up"> </div> 
+                              <div class="panel panel-default  " >
                                 <div class="panel-body">
 
                                 <!-- Add attachment icon if exist -->
@@ -126,22 +135,17 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                                             endfor; 
                                         } 
                                     ?>  
-                                </div>
-
+                                </div> 
                                   <header class="text-left">
                                     <div class="comment-user"><i class="fa fa-user"></i> <?php print $replyName; ?> </div>
-                                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i><?php print ' ' . $dateTimeCreatedAt; ?></time>
-                                   
+                                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i><?php print ' ' . $dateTimeCreatedAt; ?></time> 
                                   </header>
                                   <div class="comment-post" style="clear:both">
-                                        <?php print strip_tags($body); ?>
+                                        <?php print $body; ?>
                                   </div> 
                                 </div>
                               </div>
-                            </div>
-
-
-
+                            </div> 
                         </div>   
                     <?php endfor; ?> 
                 </replies>    
@@ -150,5 +154,5 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                 </reply>  
             </section>   
         </div> 
-        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
     </div> 

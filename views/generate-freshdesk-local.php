@@ -1,7 +1,6 @@
-<?php   
-//exit;
+<?php    
+exit; 
 require ('config.php');
-
 
  
 // get all tickets online by specific user
@@ -37,9 +36,9 @@ $_SESSION['ump_tickets_with_latest_reply_fresh']['loading_session_status'] = 'lo
 
 
 // print "<br><Br><br><Br> serialized <br><br><br>";
-//  print"<pre>";
+ print"<pre>";
 // print "<serialized>"; 
-// print_r($_SESSION['ump_tickets_with_latest_reply']);
+print_r($_SESSION['ump_tickets_with_latest_reply']);
 // print "</serialized>";
 
 //  $file = 'tickets.txt';
