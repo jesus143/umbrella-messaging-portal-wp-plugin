@@ -242,7 +242,7 @@ obj.isNotificationEmpty = false;
   
 function umpLoadContent(content_id, tab, page, div_id) {   
  	// query page content
- 	console.log("pagination clicked loader id " + content_id + "-loading");
+ 	// console.log("pagination clicked loader id " + content_id + "-loading");
 	var loadUrl = obj.site_plugin_url + '/assets/img/icon/box.gif';
  // ump-content-bge-loading
  // ump-footer-um-loading

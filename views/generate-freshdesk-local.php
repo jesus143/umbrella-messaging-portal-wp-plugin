@@ -1,6 +1,6 @@
 <?php    
-exit; 
-require ('config.php');
+ exit;
+require ('config.php'); 
 
  
 // get all tickets online by specific user
@@ -9,6 +9,8 @@ $_SESSION['ump_tickets_with_latest_reply_fresh'] = ump_retrieve_freshdesk_data(1
 // get all tickets 
 $_SESSION['ump_tickets_with_latest_reply'] = ump_generate_freshdesk_data($_SESSION['ump_tickets_with_latest_reply_fresh']); 
 
+$_SESSION['ump_tickets_with_latest_reply'] = ump_sort_ticket_by_latest_activities($_SESSION['ump_tickets_with_latest_reply']); 
+ 
 // Get all the tickets with latest reply
 $tickets = ump_separate_to_tabs($_SESSION['ump_tickets_with_latest_reply']);   
  

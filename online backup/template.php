@@ -1,5 +1,5 @@
-<?php
-ob_start();
+<?php 	
+
 use Ump\UmpFd;   
   
 function ump_messaging_dashboard_func($atts, $content = null) {     
@@ -58,11 +58,6 @@ $site_url = site_url();
 global $ump_db_version;
 $ump_db_version = '1.0'; 
 function ump_install_table() {
-
-
-    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-    //
     global $wpdb;
     global $jal_db_version; 
     $table_name = 'wp_ump_notification_reading'; 
@@ -78,45 +73,10 @@ function ump_install_table() {
         PRIMARY KEY  (id)
     ) $charset_collate;"; 
 
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql ); 
-
-
-//    //
-//
-//    $table_name = 'wp_ump_agent';
-//    $charset_collate = $wpdb->get_charset_collate();
-//
-//    $sql = "CREATE TABLE $table_name   (
-//        id mediumint(9) NOT NULL AUTO_INCREMENT,
-//        user_id bigint(20) NOT NULL,
-//        key_meta varchar(30) NOT NULL,
-//        value_meta varchar(30) NOT NULL,
-//        created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-//        PRIMARY KEY  (id)
-//    ) $charset_collate;";
-//
-//    dbDelta( $sql );
-//
-//
-
-
-
-
-
-
-
-
-
-
+    
     add_option( 'ump_db_version', $ump_db_version );
-
-
-
-
-
-
-
-
 }
 
 
@@ -144,24 +104,19 @@ function ump_admin_view () {
           </form>
         </div>
 
+
         <br>  
+ 
 
         <div style="border:1px solid red;width:70%;padding: 20px;background-color: white;border: 1px solid #cacaca;">
           <label> Shorcodes: post/page </label><br><br>
-            <br><br>
-          <b>[ump_messaging_dashboard]</b><br>
-            <small>Where you can see all the messages</small>
-            <br><br>
-          <b>[ump_sso_messaging_authentication]</b><br>
-            <small>Authomatic login to fd when user visited to portal fd messages</small>
-
-            <br><br>
-          <b>[ump_comment_message_settings]</b> <br>
-            <small>This is the settings of the agent</small>
-
+          <b>[ump_messaging_dashboard]</b>
+          <b>[ump_sso_messaging_authentication]</b>
         </div>
 
+
          <br>
+
          <div style="border:1px solid red;width:70%;padding: 20px;background-color: white;border: 1px solid #cacaca;word-wrap: break-word;">  
           <label><b>Contact registration via url ping, use this example bellow </b></label>
           <br><br>
@@ -288,109 +243,3 @@ function ump_comment_details_ticket_post_reply_func() { ?>
       print "<div class='alert alert-warning'>Posting reply failed because this message is same as previews reply post. Please <a href='".site_url()."/messages' >here</a> to messages..</div>";
     }
 }
-
-
-function ump_comment_message_settings_func()
-{
-
-
-
-
-//
-//    add_post_meta( 123, 'test', 'nice test',true );
-//    $test = get_post_meta( 123, 'test', true );
-//    print "test" . $test;
-
-
-
-
-    $current_user = wp_get_current_user();
-    if (isset($_POST['message_portal_settings_submit'])) {
-        global $wpdb;
-        print "<br>insert new data to " . $wpdb->prefix . 'postmeta <br>' . ' id ' . $current_user->ID . ' Post ' . $_POST['agent_full_name'];
-        update_user_option( $current_user->ID, 'fd_agent_id', $_POST['message_portal_agent_id'] );
-        update_user_option( $current_user->ID, 'fd_agent_profile_pic_url',  $_POST['message_portal_agent_profile_pic_url']);
-        update_user_option( $current_user->ID, 'fd_agent_full_name',  $_POST['agent_full_name']);
-
-    }
-
-
-
-    // if empty then auto insert new full name attribute for agent
-//    if(empty(update_user_option( $current_user->ID, 'fd_agent_full_name', true))){
-//        update_user_option( $current_user->ID, 'fd_agent_full_name',  $current_user->display_name);
-//    }
-
-    $agent_id = get_user_meta( $current_user->ID, 'wp_fd_agent_id', true);
-    $profile_pic_url_settings = get_user_meta( $current_user->ID, 'wp_fd_agent_profile_pic_url', true);
-    $agent_full_name = get_user_meta( $current_user->ID, 'wp_fd_agent_full_name', true);
-
-
-//    print_r($agent_id);
-
-//    print " display name " .  $current_user->display_name;
-    ?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-    <div class="container">
-        <h2>Agent Message Portal Settings</h2>
-
-
-
-        <form action="" method="post">
-            <table class="table table-bordered">
-                <tbody>
-                    <tr>
-                        <td style="width:10%;" >Full Name</td>
-
-
-                        <td>
-                            <input type="text" value="<?php print $agent_full_name; ?>" name="agent_full_name" />
-                        </td>
-
-
-                    </tr>
-                    <tr>
-                        <td>
-                            Profile Pic Url
-                        </td>
-                        <td>
-                            <?php if(!empty($agent_id)): ?>
-
-                                <?php  ump_getAgentProfilePic($agent_id); ?>
-
-                            <img src="<?php print ump_getAgentProfilePic($agent_id); ?>" style="height: 100px;"  /><br>
-                            <?php else: ?>
-                                <b> Please add the freshdesk agent id first</b>
-                            <?php endif;  ?>
-                            <input type="text" value="<?php print $profile_pic_url_settings; ?>" name="message_portal_agent_profile_pic_url" />
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Freshdesk Agent Id</td>
-                        <td>
-                            <input type="text" value="<?php print $agent_id; ?>" name="message_portal_agent_id" />
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <input type="submit" value="Update" name="message_portal_settings_submit" class="btn btn-success" />
-        </form>
-    </div>
-    </body>
-    </html>
-<?php
-}
-
-
-ob_end_flush();

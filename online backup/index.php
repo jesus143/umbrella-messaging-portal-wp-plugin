@@ -31,7 +31,6 @@ if ( is_user_logged_in() ) {
     require_once('Model/Ump_User_Fd.php');
     require_once('Controller/Ump_Ticket_Controller.php');
 
-
     $_SESSION['ump_current_user_name'] = wp_get_current_user()->display_name;
     $_SESSION['ump_current_user_email'] = wp_get_current_user()->user_email;
     $_SESSION['ump_support_user_email'] = 'support@umbrellasupport.freshdesk.com';
@@ -52,7 +51,6 @@ if ( is_user_logged_in() ) {
     add_shortcode("ump_comment_details_embedded", "ump_comment_details_embedded_func");
     add_shortcode("ump_comment_details_embedded_debugging", "ump_comment_details_embedded_debugging_func");
     add_shortcode("ump_comment_details_ticket_post_reply", "ump_comment_details_ticket_post_reply_func");
-    add_shortcode("ump_comment_message_settings", "ump_comment_message_settings_func");
 
 
     /**

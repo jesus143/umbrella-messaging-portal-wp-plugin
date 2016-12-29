@@ -20,18 +20,7 @@ $ticketId           =  $_GET['ticketId'];
 $ticketOwnerName    =  $_SESSION['ump_current_user_name'];
 $ticketSubjectC     =  '#' . $ticketId . ' ' . $ticketSubject;
 $dateTimeCreatedAt  = ump_convert_date_time_human_readable(ump_get_date_time_formatted($ticket['created_at']));  
-$message            = $ticket['message'];
-$user_id            = $ticket['requester_id'];
-
-
-$profilePicSrc = ump_getAgentProfilePic($user_id);
-$replyName = ump_getAgentFullName($user_id);
-
-
-//
-//print "<pre>";
-//print_r($ticket);
-//print "</pre>";
+$message            = $ticket['message']; 
 // print "<pre>";  
 //     print "ticket<br>";
 //     print_r($ticket); 
@@ -72,7 +61,7 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                     <div class="row">
                         <div class="col-md-2 col-sm-2 hidden-xs"> 
                           <div  class="thumbnail ump-thumbnail"    > 
-                            <img class="img-responsive ump-img-responseive"   src="<?php print $profilePicSrc; ?>" style="height:69px">
+                            <img class="img-responsive ump-img-responseive"   src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg"> 
                           </div>
                         </div> 
                         <div class="col-md-12 col-sm-12"> 
@@ -80,7 +69,7 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                           <div class="panel panel-default " >
                             <div class="panel-body">
                               <header class="text-left">
-                                <div class="comment-user"><i class="fa fa-user"></i> <?php print $replyName; ?></div>
+                                <div class="comment-user"><i class="fa fa-user"></i> <?php print $ticketOwnerName; ?></div>
                                 <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> <?php print $dateTimeCreatedAt; ?></time> 
                               </header>
                               <div class="comment-post" style="clear:both">
@@ -96,25 +85,12 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                     <hr> 
                 
               
-                    <?php  for ($i=0; $i < count($ticketReplies) ; $i++):
-
-
-
-//
-//                            print "<pre>";
-//
-//                                print_r($ticketReplies[$i]);
-//
-//                            print "</pre>";
-
-
+                    <?php  for ($i=0; $i < count($ticketReplies) ; $i++): 
                             $support_email = $ticketReplies[$i]['support_email'];
                             $from_email    = $ticketReplies[$i]['from_email'];
                             $body          = $ticketReplies[$i]['body'];
                             $to_emails     = $ticketReplies[$i]['to_emails'];
                             $created_at    = $ticketReplies[$i]['created_at'];
-                            $user_id       = $ticketReplies[$i]['user_id'];
-
                             
                             $dateTimeCreatedAt  = ump_convert_date_time_human_readable(ump_get_date_time_formatted($ticketReplies[$i]['created_at']));  
 
@@ -126,32 +102,20 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                             // used default to send reply
                             if(!empty($support_email)) {
                                 $umpTo = $support_email;
-                            }
-
-
-
-//                            if(in_array($_SESSION['ump_current_user_email'],  $to_emails) == true) {
-//                                $replyName = $from_email;
-//                                $profilePicSrc = $_SESSION['ump_agent_profile_pic_url_src'];
-//                            } else {
-//                                $replyName = $ticketOwnerName;
-//                                $profilePicSrc = $_SESSION['ump_customer_profile_pic_url_src'];
-//                            }
-
-
-
-
-
-                            $profilePicSrc = ump_getAgentProfilePic($user_id);
-                            $replyName = ump_getAgentFullName($user_id);
-
-
+                            }  
+                            if(in_array($_SESSION['ump_current_user_email'],  $to_emails) == true) {    
+                                $replyName = $from_email;
+                                $profilePicSrc = $_SESSION['ump_agent_profile_pic_url_src'];
+                            } else { 
+                                $replyName = $ticketOwnerName;
+                                $profilePicSrc = $_SESSION['ump_customer_profile_pic_url_src'];
+                            } 
                             ?>
                         <div class="row"> 
                            
                             <div class="col-md-2 col-sm-2 hidden-xs"> 
                               <div class="thumbnail ump-thumbnail"     > 
-                                <img class="img-responsive ump-img-responseive" title="<?php print $user_id; ?>" src="<?php print $profilePicSrc; ?>" style="height:69px">
+                                <img class="img-responsive ump-img-responseive"  src="<?php print $profilePicSrc; ?>">
                               </div>
                             </div> 
                             <div class="col-md-12 col-sm-12">

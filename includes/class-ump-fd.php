@@ -92,6 +92,34 @@ class UmpFd
 		  return json_decode($response, true);
 		}
 	}
+
+	/**
+	 * @param $ticketId
+	 * @return mixed|void
+	 * [
+	{
+	"body": "<div dir=\"ltr\" style='font-size: 13px; font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;'>\n<div></div>\n<div>\n<div>fsfdfsdfsdf</div>\n<div dir=\"ltr\">\r\n</div>\n</div>\r\n</div>\r\n                \r\n              ",
+	"body_text": "fsfdfsdfsdf",
+	"id": 19004667189,
+	"incoming": false,
+	"private": false,
+	"user_id": 19001031521,
+	"support_email": "support@umbrellasupport.freshdesk.com",
+	"source": 0,
+	"ticket_id": 152,
+	"to_emails": [
+	"jellyandicecream@umbrellapartner.co.uk"
+	],
+	"from_email": "\"Richard Howard\" <support@umbrellasupport.freshdesk.com>",
+	"cc_emails": [],
+	"bcc_emails": [],
+	"created_at": "2016-12-02T18:30:02Z",
+	"updated_at": "2016-12-02T18:30:02Z",
+	"attachments": []
+	}
+	]
+
+	 */
 	public static function getUserTicketReplies($ticketId) 
 	{ 
 
