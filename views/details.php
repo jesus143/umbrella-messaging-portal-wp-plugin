@@ -94,20 +94,10 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                 <replies> 
                     <h3> Comments </h3>  
                     <hr> 
-                
-              
                     <?php  for ($i=0; $i < count($ticketReplies) ; $i++):
-
-
-
-//
-//                            print "<pre>";
-//
+//                            print "<pre>"
 //                                print_r($ticketReplies[$i]);
-//
 //                            print "</pre>";
-
-
                             $support_email = $ticketReplies[$i]['support_email'];
                             $from_email    = $ticketReplies[$i]['from_email'];
                             $body          = $ticketReplies[$i]['body'];
@@ -115,13 +105,10 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                             $created_at    = $ticketReplies[$i]['created_at'];
                             $user_id       = $ticketReplies[$i]['user_id'];
 
-                            
                             $dateTimeCreatedAt  = ump_convert_date_time_human_readable(ump_get_date_time_formatted($ticketReplies[$i]['created_at']));  
 
                             $attachments   = $ticketReplies[$i]['attachments'];
                             $attachmentsTotal = count($attachments);  
-
-
 
                             // used default to send reply
                             if(!empty($support_email)) {
@@ -138,13 +125,12 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
 //                                $profilePicSrc = $_SESSION['ump_customer_profile_pic_url_src'];
 //                            }
 
-
-
-
+                            // print "<pre>";
+                            //   print_r($ticketReplies[$i]);
+                            // print "</pre>"; 
 
                             $profilePicSrc = ump_getAgentProfilePic($user_id);
                             $replyName = ump_getAgentFullName($user_id);
-
 
                             ?>
                         <div class="row"> 

@@ -3,7 +3,7 @@ ob_start();
 use Ump\UmpFd;   
   
 function ump_messaging_dashboard_func($atts, $content = null) {     
-   
+    
 
 
 ?>
@@ -294,7 +294,7 @@ function ump_comment_message_settings_func()
 {
 
 
-
+  // print "business profile pic " . ump_getBusinessProfilePic(); 
 
 //
 //    add_post_meta( 123, 'test', 'nice test',true );

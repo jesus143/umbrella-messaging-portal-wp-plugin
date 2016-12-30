@@ -639,7 +639,7 @@ function ump_getAgentProfilePic($fd_agent_user_id)
 	} else {
 
 		// profile pic is for partner current logged in
-		return $_SESSION['ump_customer_profile_pic_url_src'];
+		return ump_getBusinessProfilePic();
 	}
 }
 
@@ -653,4 +653,80 @@ function ump_getAgentFullName($fd_agent_user_id)
 		// full name is for partner current logged in
 		return $_SESSION['ump_current_user_name'];
 	}
+} 
+
+function ump_getBusinessProfilePic()
+{  
+	// connection
+	$host    = "db640728737.db.1and1.com";
+   	$database   = "db640728737";
+	$user    = "dbo640728737";
+   	$password   = "1qazxsw2!QAZXSW@";
+   	try{
+	   	$WP_CON = new PDO('mysql:host='.$host.';dbname='.$database.';', $user, $password);
+	   	$WP_CON->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   	}catch(PDOException $ERR){
+	    echo $ERR->getMessage();
+	    exit();
+   	}
+   	try{
+	    $QUESTRING_GETNAIMG = "SELECT * FROM wp_user_imguploads";
+	    $GETNAIMG_RESULT = $WP_CON->query($QUESTRING_GETNAIMG);
+	    $GETNAIMG_LISTS  = $GETNAIMG_RESULT->fetch();
+   	}catch(PDOException $ERR){
+	    echo $ERR->getMessage();
+	    exit();
+   	}  
+
+ 	//	get partner id  
+  	$current_user = wp_get_current_user();
+  	$customAPIKEY  = get_field('custom_api_key','option');// name of the admin
+   	$customAPIID  = get_field('custom_api_id','option');// Email Title for the admin
+   	//echo "Email Address: " . $current_user->user_email; 
+   	//$postargs = "http://api.ontraport.com/1/objects?objectID=0&performAll=true&sortDir=asc&condition=email%3D'marvin.romagos@yahoo.com'&searchNotes=true"; 
+   	$postargs = "http://api.ontraport.com/1/objects?objectID=0&performAll=true&sortDir=asc&condition=email%3D'".$current_user->user_email."'&searchNotes=true";
+    $session = curl_init();
+    curl_setopt ($session, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt ($session, CURLOPT_URL, $postargs);
+   	//curl_setopt ($session, CURLOPT_HEADER, true);
+   	curl_setopt ($session, CURLOPT_HTTPHEADER, array(
+     'Api-Appid:'.$customAPIID,
+     'Api-Key:'.$customAPIKEY
+   	));
+   	$response = curl_exec($session); 
+   	curl_close($session);
+   	//header("Content-Type: text");
+   	//echo "CODE: " . $response;
+   	$getName  = json_decode($response);
+   	//var_dump($getName);
+   	$businessID = $getName->data[0]->id;
+ 	
+ 	// get image now
+	global $featured_image,$status;
+  	$sql = $WP_CON->prepare('SELECT ui_URL AS url,ui_STATUS AS status FROM wp_user_imguploads WHERE uid_PartnerID = :parnerID');
+  	$sql->execute(array(':parnerID' => $businessID));
+  	$result = $sql->fetchObject();
+  	$status=$result->status;
+  	if(!empty($result->url)) {
+   		$featured_image=$result->url;
+  	}
+  	switch($status){
+    case 0  : 
+     	$class_watermark='class="water-wrapper water-mark"';
+   		$featured = $featured_image; 
+    break;
+    case 1  : 
+     	$class_watermark='class="water-wrapper"';
+   		$featured = $featured_image;
+    break;
+    default : 
+      	$class_watermark='class="water-wrapper"';
+   		//$featured   = get_stylesheet_directory_uri().'/images/default-logo.jpg';
+    	break;
+  	}
+    if(!empty($featured)){
+  		return  $featured;
+ 	}else{ 
+ 		return get_stylesheet_directory_uri().'/images/default-logo.jpg';
+ 	} 
 }
