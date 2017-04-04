@@ -1,4 +1,7 @@
 <?php    
+    
+    error_reporting(0); 
+
     require ('config.php');   
  
     $_SESSION['tickets'] = ump_separate_to_tabs($_SESSION['ump_tickets_with_latest_reply']);  
