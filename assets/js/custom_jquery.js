@@ -11,8 +11,8 @@ if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
 	obj1.site_plugin_url_ext = 'http://localhost/practice/wordpress/wp-content/plugins/umbrella-messaging-portal-rte';  
     // alert("It's a local server!");
 } else {
-	obj.site_plugin_url = 'http://testing.umbrellasupport.co.uk/wp-content/plugins/umbrella-messaging-portal'; 
-	obj1.site_plugin_url_ext = 'http://testing.umbrellasupport.co.uk/wp-content/plugins/umbrella-messaging-portal-rte'; 
+	obj.site_plugin_url = 'https://testing.umbrellasupport.co.uk/wp-content/plugins/umbrella-messaging-portal'; 
+	obj1.site_plugin_url_ext = 'https://testing.umbrellasupport.co.uk/wp-content/plugins/umbrella-messaging-portal-rte'; 
 }
 
 obj.isNotificationEmpty = false;
