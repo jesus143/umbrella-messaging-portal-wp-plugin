@@ -38,7 +38,7 @@ if ( is_user_logged_in() ) {
     $_SESSION['ump_support_user_email'] = 'support@umbrellasupport.freshdesk.com';
     $_SESSION['ump_support_user_name'] = 'Umbrella Business Support Ltd'; 
     $_SESSION['ump_total_ticket_per_page'] =10;
-    $_SESSION['ump_agent_profile_pic_url_src'] = get_option ( 'ump_agent_profile_pic_url_src' );
+    $_SESSION['ump_agent_profile_pic_url_src'] =  'https://pickaface.net/gallery/avatar/13433698_170405_2237_ytxd0.png'; // get_option ( 'ump_agent_profile_pic_url_src' );
     $_SESSION['ump_customer_profile_pic_url_src'] =   get_avatar_url( wp_get_current_user()->user_email );
     // $_SESSION['ump_tickets_with_latest_reply'] = array();
     // Load plugin libraries

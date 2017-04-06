@@ -61,7 +61,11 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                     <div class="row">
                         <div class="col-md-2 col-sm-2 hidden-xs"> 
                           <div  class="thumbnail ump-thumbnail"    > 
-                            <img class="img-responsive ump-img-responseive"   src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg"> 
+                            
+
+                            <img class="img-responsive ump-img-responseive"   src="<?php print $_SESSION['ump_agent_profile_pic_url_src']; ?>"> 
+                    test1
+
                           </div>
                         </div> 
                         <div class="col-md-12 col-sm-12"> 
@@ -91,7 +95,9 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                             $body          = $ticketReplies[$i]['body'];
                             $to_emails     = $ticketReplies[$i]['to_emails'];
                             $created_at    = $ticketReplies[$i]['created_at'];
-                            
+                              
+                            print "created at " . $ticketReplies[$i]['created_at'];
+
                             $dateTimeCreatedAt  = ump_convert_date_time_human_readable(ump_get_date_time_formatted($ticketReplies[$i]['created_at']));  
 
                             $attachments   = $ticketReplies[$i]['attachments'];
@@ -106,9 +112,12 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                             if(in_array($_SESSION['ump_current_user_email'],  $to_emails) == true) {    
                                 $replyName = $from_email;
                                 $profilePicSrc = $_SESSION['ump_agent_profile_pic_url_src'];
+                                //print "if user email";
                             } else { 
                                 $replyName = $ticketOwnerName;
                                 $profilePicSrc = $_SESSION['ump_customer_profile_pic_url_src'];
+
+                                //print "else user email";
                             } 
                             ?>
                         <div class="row"> 

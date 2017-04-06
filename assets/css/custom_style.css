@@ -59,3 +59,14 @@
 .ump-reply-message-container {
 	margin-left: -14px !important;
 }
+
+
+
+.message-boxes-container {
+	width: 81% !important; 
+} 
+
+.comment-date { 
+    float: right !important;
+    margin-top: -20px !important;
+}

@@ -630,16 +630,32 @@ function ump_getAgentFullNameByWpUserId($wp_user_id)
 	}
 	return 'Jesus Erwin Suarez';
 }
+
+
+function isAgent($fd_agent_user_id)
+{  
+	$wp_user_id = ump_getAgentWpUserIdByFdUserId($fd_agent_user_id); 
+	if($wp_user_id) { 
+		return true; 
+	} else { 
+		return false; 
+	}
+}
 function ump_getAgentProfilePic($fd_agent_user_id)
-{
+{ 
+	//print  " fd user id " . $fd_agent_user_id; 
 	$wp_user_id = ump_getAgentWpUserIdByFdUserId($fd_agent_user_id);
-
-	if($wp_user_id) {
-		return ump_getAgentProfilePicByWpUserId($wp_user_id);
-	} else {
-
-		// profile pic is for partner current logged in
-		return ump_getBusinessProfilePic();
+ 
+	//print "user id " . $wp_user_id ;  
+	if($wp_user_id) { 
+		return $_SESSION['ump_agent_profile_pic_url_src']; //ump_getAgentProfilePicByWpUserId($wp_user_id);  
+	} else { 
+		if(isLocal())  { 
+			return 'https://pickaface.net/gallery/avatar/unr_silvia_170405_2300_qvq8onc.png'; 
+		} else {  
+			// profile pic is for partner current logged in
+			return ump_getBusinessProfilePic();
+		} 
 	}
 }
 
@@ -729,4 +745,10 @@ function ump_getBusinessProfilePic()
  	}else{ 
  		return get_stylesheet_directory_uri().'/images/default-logo.jpg';
  	} 
+}
+
+
+function isLocal ()
+{
+  return !checkdnsrr($_SERVER['SERVER_NAME'], 'NS');
 }

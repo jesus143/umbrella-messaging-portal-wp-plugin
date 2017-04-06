@@ -1,0 +1,33 @@
+Hi Rich, 
+
+Updated for April 5, 2017 
+Fix loading issue
+  - do fixing with umbrella portal rte
+  - do fixing with umbrella portal ump
+  - do fixing with umbrella portal 
+  - do fixing with umbrella sso 
+ 
+https://fieldops.umbrellasupport.co.uk/messages/ if u click on a message here or in testing the footer is messed up -  1hr - 2:00 
+ - cant find any missed up footer, see https://www.screencast.com/t/0gWySogpp
+ 
+change profile pic link for the admin to this  https://testing.umbrellasupport.co.uk/wp-content/uploads/2017/04/Umbrella-Favicon-123.jpg
+ 
+Todo tomorrow
+ 
+
+ Hi Rich,
+
+Update for March 
+setup in localhost for development 
+Confirm have the agent pic be the umbrella logo for now. 
+Do testing with Rachel for bpc both testing and book phone call sites  
+  - create test report to rachel 
+  - communicate rachel and have a call show how to use and to test
+We need look like an sms conversation  -  currently in progress https://www.screencast.com/t/gWg51POrFUA
+ 
+Todo tomorrow:   
+See position of icon on the same, longer box, date to the right and add time too  - 2hrs - 4:30pm  
+
+The reply box needs to be much wider. - 1hr 
+Speed when clicking on an email in messages section is super slow plz try and speed up, just work on testing for now plz - 4hrs
+ 

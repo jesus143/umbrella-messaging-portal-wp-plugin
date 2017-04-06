@@ -12,7 +12,7 @@ $tab = $_GET['tab'];
         <script>tinymce.init({ selector:'textarea' });</script>
     </head>
     <body>  
-        <div style="border: 1px solid #e7e6e6;padding: 20px;background-color: #fafafa;border-radius: 5px;width: 98%;">
+        <div style="border: 1px solid #e7e6e6;padding: 20px;background-color: #fafafa;border-radius: 5px;width: 100%;">
 
 
             <!-- <form method="post" action="<?php print get_site_url(); ?>/umbrella-messaging-portal/?section=message-details&ticketId=<?php print $ticketId; ?>&replyId=<?php print $replyId; ?>&tab=<?php print $tab; ?>" enctype="multipart/form-data"> -->
