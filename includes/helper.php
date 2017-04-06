@@ -750,5 +750,10 @@ function ump_getBusinessProfilePic()
 
 function isLocal ()
 {
-  return !checkdnsrr($_SERVER['SERVER_NAME'], 'NS');
+    if($_SERVER['HTTP_HOST'] == 'localhost' || substr($_SERVER['HTTP_HOST'],0,3) == '10.'|| substr($_SERVER['HTTP_HOST'],0,7) == '192.168')  { 
+	 	return true;
+    } else { 
+	 	return false;
+    }
+  	// return !checkdnsrr($_SERVER['SERVER_NAME'], 'NS');
 }

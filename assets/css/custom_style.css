@@ -63,10 +63,42 @@
 
 
 .message-boxes-container {
-	width: 81% !important; 
+	width: 81% !important;
 } 
 
-.comment-date { 
+.comment-date {
     float: right !important;
     margin-top: -20px !important;
+}
+
+.comment-date .fa { 
+    font-size: 1.5em !important; 
+}
+
+.text-left { 
+	width:100%;
+}
+
+
+.row-container {
+/* 	border: 1px solid #dddddd; */
+	width: 98% !important;
+	padding: 0px;
+	margin: 0px ;
+	max-width: 100% !important;
+}
+
+.comment-box-container {
+	border: 1px solid #dddddd;
+	padding: 20px;
+	background-color: #fafafa;
+	border-radius: 5px;
+	width: 95%;
+	resize:none !important; 
+	margin-top:20px; 
+
+} 
+
+.paper-clip {
+	font-size:22px !important; 
 }
