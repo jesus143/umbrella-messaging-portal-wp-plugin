@@ -12,9 +12,9 @@ ump_process_update_status_to_read(get_current_user_id(), $_GET['ticketId'], $rep
 
 $ticketId           = $_GET['ticketId'];
 
-$ticketReplies      =  Ump\UmpFd::getUserTicketReplies( $_GET['ticketId'] );
+$ticketReplies      =  Ump\UmpFd::getUserTicketReplies($_GET['ticketId']); 
 
-$ticket             =  Ump\UmpFd::getSpecificTicket(  $_GET['ticketId'] );
+$ticket             =  Ump\UmpFd::getSpecificTicket($_GET['ticketId']); 
 
 $currentUserEmail   =  $_SESSION['ump_current_user_email'];
 
@@ -35,7 +35,7 @@ $user_id            = $ticket['requester_id'];
           
                              
 
-$profilePicSrc = ump_getAgentProfilePic($user_id);
+$profilePicSrcPartner = ump_getPartnerProfilePic($user_id);
 $replyName = ump_getAgentFullName($user_id);
 
 
@@ -81,7 +81,7 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                     <div class="row row-container"> 
                         <div class="col-md-1 col-sm-2 hidden-xs"> 
                           <div  class="thumbnail ump-thumbnail"    > 
-                            <img class="img-responsive ump-img-responseive"   src="<?php print $profilePicSrc; ?>" style="height:69px">  
+                            <img class="img-responsive ump-img-responseive"   src="<?php print $profilePicSrcPartner; ?>" style="height:69px">  
                           </div>
                         </div>  
                         <div class="col-md-10 col-sm-12 message-boxes-container" > 
@@ -149,7 +149,9 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                               // print "</pre>"; 
                             
                               $isAgent = isAgent($user_id); 
-                              $profilePicSrc = ump_getAgentProfilePic($user_id);  
+
+                              $profilePicSrcAgent = ump_getAgentProfilePic($user_id);  
+
                               $replyName = ump_getAgentFullName($user_id); 
                             
 
@@ -174,7 +176,7 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                         
                                 <div class="col-md-1 col-sm-2 hidden-xs"> 
                                   <div class="thumbnail ump-thumbnail"     > 
-                                    <img class="img-responsive ump-img-responseive" title="<?php print $user_id; ?>" src="<?php print $profilePicSrc; ?>" style="height:69px;"  > 
+                                    <img class="img-responsive ump-img-responseive" title="<?php print $user_id; ?>" src="<?php print $profilePicSrcPartner; ?>" style="height:69px;"  > 
                                   </div>
                                 </div> 
                               <?php endif; ?>
@@ -216,7 +218,7 @@ ump_ticket_notification_visited($ticketId, $_GET['tab']);
                                <?php if($isAgent == true): ?> 
                                 <div class="col-md-1 col-sm-2 hidden-xs " style="<?php print  $profile_pic_style; ?>"> 
                                   <div class="thumbnail ump-thumbnail"  > 
-                                    <img class="img-responsive ump-img-responseive" title="<?php print $user_id; ?>" src="<?php print $profilePicSrc; ?>" style="height:69px;"  > 
+                                    <img class="img-responsive ump-img-responseive" title="<?php print $user_id; ?>" src="<?php print $profilePicSrcAgent; ?>" style="height:69px;"  > 
                                   </div>
                                 </div> 
                               <?php endif; ?> 

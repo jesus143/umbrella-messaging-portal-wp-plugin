@@ -1,3 +1,17 @@
+Todo tomorrow 
+Mobile responsive - ticket details - done
+Footer - ticket details - done
+Speed of the ticket details load - ticket details - 
+
+
+
+
+
+
+
+
+
+
 Hi Rich, 
 
 Updated for April 5, 2017 
