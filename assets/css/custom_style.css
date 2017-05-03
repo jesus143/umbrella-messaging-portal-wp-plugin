@@ -1,145 +1,170 @@
 .ump-footer-loader {
-	height: 73px;
-	margin-left:-10px;
+    height: 73px;
+    margin-left:-10px;
 }
 .ump-content-loader {
-	height: 30px;
-} 
+    height: 30px;
+}
 .ump-content-bge, .ump-content-um, .ump-content-up {
-	min-height:100px; 
+    min-height:100px;
 }
 #menu1, #menu2, #menu3 {
-	background-color: white;
-} 
+    background-color: white;
+}
 .mce-container-body {
-    background-color: #f6f6f6 !important; 
+    background-color: #f6f6f6 !important;
 }
 .ump-reply-ticket-submit {
-	background-color: #525151;
-	border-radius: 5px;
-	color: white;
-	padding: 2px 32px 7px 32px;
-} 	
+    background-color: #d7090a;
+    border-radius: 5px;
+    color: white;
+    padding: 8px 31px 8px 32px;
+    border: none;
+}
 .comment-list time {
-	font-size:12px;
-} 
+    font-size:12px;
+}
 .arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 15px solid #dddddd;
-  margin-left: 31px;
-} 
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #dddddd;
+    margin-left: 31px;
+}
 .arrow-down {
-  width: 0; 
-  height: 0; 
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent; 
-  border-top: 20px solid #f00;
-} 
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #f00;
+}
 .ump-thumbnail {
-	padding: 4px !important;
-	width: 78px;
+    padding: 4px !important;
+    width: 78px;
 }
 .ump-img-responseive {
-	width:70px !important;
-} 
+    width:70px !important;
+}
 /*Update css to fix graphics*/
 .nav.nav-tabs {
-	border:none !important;
-	margin-left: 135px;
-} 
-.tab-content { 
-    width: 92%;  
+    border:none !important;
+    margin-left: 135px;
 }
-#page-content  hr {   
-	display:none; 
-}  
+.tab-content {
+    width: 92%;
+}
+#page-content  hr {
+    display:none;
+}
 .ump-reply-message-container {
-	margin-left: -14px !important;
+    margin-left: -14px !important;
 }
 
 
 
 .message-boxes-container {
-	width: 81% !important;
-} 
+    width: 81% !important;
+}
 
 .comment-date {
     float: right !important;
     margin-top: -20px !important;
 }
 
-.comment-date .fa { 
-    font-size: 1.5em !important; 
+.comment-date .fa {
+    font-size: 1.5em !important;
 }
 
 .fa-user{
-	font-size: 1.2em !important; 
+    font-size: 1.2em !important;
 }
 
-.text-left { 
-	width:100%;
+.text-left {
+    width:100%;
 }
 
 
 .row-container {
-/* 	border: 1px solid #dddddd; */
-	width: 98% !important;
-	padding: 0px;
-	margin: 0px ;
-	max-width: 100% !important;
+    /* 	border: 1px solid #dddddd; */
+    width: 98% !important;
+    padding: 0px;
+    margin: 0px ;
+    max-width: 100% !important;
 }
 
 .comment-box-container {
-	border: 1px solid #dddddd;
-	padding: 20px;
-	background-color: #fafafa;
-	border-radius: 5px;
-	width: 95%;
-	resize:none !important; 
-	margin-top:20px; 
+    border: 1px solid #dddddd;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    width: 95%;
+    resize:none !important;
+    margin-top:20px;
 
-} 
+}
 
 .paper-clip {
-	font-size:22px !important; 
+    font-size:22px !important;
 }
 .test {
 
 }
 
 @media only screen and (min-width: 970px)  {
-	#footer-nav ul {   
-		width:842px !important; 
-	}
-} 
+    #footer-nav ul {
+        width:842px !important;
+    }
+}
 
 @media only screen and (max-width: 769px) {
-	#footer-nav ul  { 
-		width:641px !important;
- 	}
+    #footer-nav ul  {
+        width:641px !important;
+    }
 }
 
 
 @media only screen and (max-width: 976px) {
-	.ump-thumbnail { 
-		display:none
-	}
+    .ump-thumbnail {
+        display:none
+    }
 }
 
 
 
 
 /*.show {*/
-    /*display: auto !important;*/
+/*display: auto !important;*/
 /*}*/
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
     background-color: #d7090a !important;
     border-color: #d7090a !important;
 }
 
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #d7090a !important;
+}
+
 i {
     font-size: 16px !important;
+}
+
+/* Editor remove elements */
+#mceu_44,
+#mceu_45,
+#mceu_46,
+#mceu_47,
+#mceu_48,
+#mceu_51,
+#mceu_52,
+#mceu_53,
+#mceu_63,
+#mceu_64,
+#mceu_65,
+#mceu_66,
+#mceu_67,
+#mceu_68,
+#mceu_69,
+#mceu_70 {
+    display:none;
 }
